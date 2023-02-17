@@ -1,8 +1,15 @@
 import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import React from 'react';
+import { UserProvider } from '@auth0/nextjs-auth0/client';
+import {StoreProvider} from '../utils/Store';
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+
+export default function App({ Component, pageProps }:any) {
+  return (
+    <UserProvider>
+      <StoreProvider>
+        <Component {...pageProps} />
+      </StoreProvider>
+    </UserProvider>
+  );
 }
-
-export default MyApp
