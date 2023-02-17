@@ -1,21 +1,20 @@
 import React, { Fragment, useState } from 'react';
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
-import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid'
+import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon } from '@heroicons/react/20/solid'
 
 const sortOptions = [
-    { name: 'Most Popular', href: '#', current: true },
+    { name: 'Featured', href: '#', current: true },
     { name: 'Best Rating', href: '#', current: false },
     { name: 'Newest', href: '#', current: false },
     { name: 'Price: Low to High', href: '#', current: false },
     { name: 'Price: High to Low', href: '#', current: false },
   ]
   const subCategories = [
-    { name: 'Totes', href: '#' },
-    { name: 'Backpacks', href: '#' },
+    { name: 'Shirts', href: '#' },
+    { name: 'Pants', href: '#' },
     { name: 'Travel Bags', href: '#' },
-    { name: 'Hip Bags', href: '#' },
-    { name: 'Laptop Sleeves', href: '#' },
+    { name: 'Laptop Bags', href: '#' },
   ]
   const filters = [
     {
@@ -31,10 +30,10 @@ const sortOptions = [
       ],
     },
     {
-      id: 'category',
-      name: 'Category',
+      id: 'prices',
+      name: 'Prices',
       options: [
-        { value: 'new-arrivals', label: 'New Arrivals', checked: false },
+        { value: '<100', label: 'below 100', checked: false },
         { value: 'sale', label: 'Sale', checked: false },
         { value: 'travel', label: 'Travel', checked: true },
         { value: 'organization', label: 'Organization', checked: false },
@@ -42,15 +41,12 @@ const sortOptions = [
       ],
     },
     {
-      id: 'size',
-      name: 'Size',
+      id: 'rating',
+      name: 'Rating',
       options: [
-        { value: '2l', label: '2L', checked: false },
-        { value: '6l', label: '6L', checked: false },
-        { value: '12l', label: '12L', checked: false },
-        { value: '18l', label: '18L', checked: false },
-        { value: '20l', label: '20L', checked: false },
-        { value: '40l', label: '40L', checked: true },
+        { value: '1', label: 'Any', checked: false },
+        { value: '3', label: 'Above 3', checked: false },
+        { value: '4', label: '4 and above', checked: false },
       ],
     },
   ]
@@ -189,8 +185,8 @@ const Categoryfilter = () => {
                   leaveFrom="transform opacity-100 scale-100"
                   leaveTo="transform opacity-0 scale-95"
                 >
-                  <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
-                    <div className="py-1">
+                  <Menu.Items className="absolute left-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <div className="py-1 ml-">
                       {sortOptions.map((option) => (
                         <Menu.Item key={option.name}>
                           {({ active }) => (
@@ -212,10 +208,7 @@ const Categoryfilter = () => {
                 </Transition>
               </Menu>
 
-              <button type="button" className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7">
-                <span className="sr-only">View grid</span>
-                <Squares2X2Icon className="h-5 w-5" aria-hidden="true" />
-              </button>
+              
               <button
                 type="button"
                 className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"

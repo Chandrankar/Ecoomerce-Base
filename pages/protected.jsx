@@ -1,9 +1,9 @@
 import React from 'react';
 import {withPageAuthRequired, getSession} from '@auth0/nextjs-auth0';
-
+import Categoryfilter from '../components/CategoryFilter/categoryfilter';
 const Protected = () => {
   return (
-    <div>Protected</div>
+    <div><Categoryfilter/></div>
   )
 }
 
@@ -19,4 +19,4 @@ const Protected = () => {
 //     }
 // )
 
-export default withPageAuthRequired(Protected)
+export default Protected

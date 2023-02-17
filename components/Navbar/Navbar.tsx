@@ -26,7 +26,7 @@ const Navbar = () => {
   const {user} = useUser();
   const [query,setQuery] = useState('');
 
-  const submitHandler = (e)=>{
+  const submitHandler = (e:any)=>{
     e.preventDefault();
     push(`/search?query=${query}`);
   }
@@ -172,11 +172,11 @@ const Navbar = () => {
               ))}
             </div>
             <div>
-              <form onSubmit={submitHandler} className="mx-auto justify-center md:flex">
-                <input type="text" className="ml-4 mb-2 p-2 rounded-l-full text-sm focus:ring-0 bg-gray-200"
+              <form onSubmit={submitHandler} className="flex mx-auto justify-left ml-5">
+                <input type="text" className="mb-2 p-2 rounded-l-full text-xs focus:ring-0 bg-gray-200"
                 onChange={(e)=>setQuery(e.target.value)}
                 placeholder="Search..."/>
-                <button className="rounded-r-full bg-gray-200 p-2 text-sm mb-2">
+                <button className="rounded-r-full bg-gray-200 p-2 text-xs mb-2">
                   <SearchOutlinedIcon/>
                 </button>
               </form>
