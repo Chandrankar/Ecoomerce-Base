@@ -2,18 +2,17 @@ import React,{Fragment, useState} from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { Bars3Icon,  XMarkIcon } from '@heroicons/react/24/outline';
 import Loginbutton from '../LoginButton/loginbutton';
 import Sidecart from '../Sidecart/Sidecart';
 import { useUser } from '@auth0/nextjs-auth0/client';
-
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 
 
 const navigation = [
     { name: 'Home', href: '/', current: true },
     { name: 'About', href: '/about', current: false },
-    { name: 'Projects', href: '#', current: false },
-    { name: 'Calendar', href: '#', current: false },
+    { name: 'Dashboard', href: '/dashboard', current: false },
   ]
   
   function classNames(...classes:any) {
@@ -25,6 +24,12 @@ const Navbar = () => {
   const{push} = useRouter();
   const [open, setOpen] = useState(false);
   const {user} = useUser();
+  const [query,setQuery] = useState('');
+
+  const submitHandler = (e)=>{
+    e.preventDefault();
+    push(`/search?query=${query}`);
+  }
 
 
   return (
@@ -73,7 +78,18 @@ const Navbar = () => {
                         {item.name}
                       </Link>
                     ))}
+                    <div className="md: w-80">
+                    <form onSubmit={submitHandler} className="mx-auto hidden w-full justify-center md:flex">
+                      <input type="text" className="rounded-l-full  p-1 text-sm focus:ring-0 bg-gray-200"
+                      onChange={(e)=>setQuery(e.target.value)}
+                      placeholder="Search..."/>
+                      <button className="rounded-r-full bg-gray-200">
+                        <SearchOutlinedIcon/>
+                      </button>
+                    </form>
                   </div>
+                  </div>
+                  
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
@@ -155,6 +171,17 @@ const Navbar = () => {
                 </Disclosure.Button>
               ))}
             </div>
+            <div>
+              <form onSubmit={submitHandler} className="mx-auto justify-center md:flex">
+                <input type="text" className="ml-4 mb-2 p-2 rounded-l-full text-sm focus:ring-0 bg-gray-200"
+                onChange={(e)=>setQuery(e.target.value)}
+                placeholder="Search..."/>
+                <button className="rounded-r-full bg-gray-200 p-2 text-sm mb-2">
+                  <SearchOutlinedIcon/>
+                </button>
+              </form>
+            </div>
+            
           </Disclosure.Panel>
         </>
       )}
