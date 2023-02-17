@@ -170,5 +170,4 @@ const Placeorder = () => {
   )
 }
 
-Placeorder.auth= true;
 export default Placeorder
