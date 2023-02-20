@@ -158,8 +158,9 @@ const Navbar = () => {
             <div className="mx-2"><Link href="/search?category=Saree">Sarees</Link></div>
             <div className="mx-2"><Link href="/search?category=KurtaSet">Kurta Set</Link></div>
             <div className="mx-2"><Link href="/search?category=Kurtis">Kurtis</Link></div>
-            <div className="mx-2"><Link href="/search?category=Shirt">Shirts</Link></div>
+            <div className="mx-2"><Link href="/search?category=Shirts">Shirts</Link></div>
             <div className="mx-2"><Link href="/search?category=Grown">Growns</Link></div>
+            <div className="mx-2"><Link href="/search?category=Pants">Pants</Link></div>
           </div>
 
           <Disclosure.Panel className="sm:hidden">
