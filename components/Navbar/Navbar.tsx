@@ -11,7 +11,6 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 
 const navigation = [
     { name: 'Home', href: '/', current: true },
-    { name: 'About', href: '/about', current: false },
     { name: 'Dashboard', href: '/dashboard', current: false },
   ]
   
@@ -78,7 +77,7 @@ const Navbar = () => {
                         {item.name}
                       </Link>
                     ))}
-                    <div className="md: w-80">
+                    <div className="md: w-full">
                     <form onSubmit={submitHandler} className="mx-auto hidden w-full justify-center md:flex">
                       <input type="text" className="rounded-l-full  p-1 text-sm focus:ring-0 bg-gray-200"
                       onChange={(e)=>setQuery(e.target.value)}
@@ -153,6 +152,14 @@ const Navbar = () => {
                 
               </div>
             </div>
+          </div>
+          <div className="hidden md:flex justify-start items-center text-white p-2 ml-16 text-bold">
+            <div className="mx-2 ml-16"><Link href="/About">About Us</Link></div>
+            <div className="mx-2"><Link href="/search?category=Saree">Sarees</Link></div>
+            <div className="mx-2"><Link href="/search?category=KurtaSet">Kurta Set</Link></div>
+            <div className="mx-2"><Link href="/search?category=Kurtis">Kurtis</Link></div>
+            <div className="mx-2"><Link href="/search?category=Shirt">Shirts</Link></div>
+            <div className="mx-2"><Link href="/search?category=Grown">Growns</Link></div>
           </div>
 
           <Disclosure.Panel className="sm:hidden">

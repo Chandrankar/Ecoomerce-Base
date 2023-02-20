@@ -9,10 +9,11 @@ import { toast } from 'react-toastify';
 import { getError } from '../utils/error';
 import Cookies from 'js-cookie';
 import axios from 'axios';
-
+import { useUser } from '@auth0/nextjs-auth0/client';
 
 
 const Placeorder = () => {
+    const {user} =useUser();
     const router = useRouter();
     const {state, dispatch}=useContext(Store);
     const {cart}= state;
@@ -60,8 +61,40 @@ const Placeorder = () => {
         }
     }
 
+    const checkoutHandler= async ()=>{
+        const{data:{order}} = await axios.post('/api/paymentController',{
+            amount: totalPrice,
+        })
+        console.log(order)
+        const options = {
+            "key": process.env.RAZORPAY_API_KEY,
+            "amount": order.amount, 
+            "currency": "INR",
+            "name": "Ecomm",
+            "description": "Test Transaction",
+            "image": "https://example.com/your_logo",
+            "order_id": order.id, 
+            "callback_url": "http://localhost:3000/api/paymentverification",
+            "prefill": {
+                "name": "Gaurav Kumar",
+                "email": "gaurav.kumar@example.com",
+                "contact": "9000090000"
+            },
+            "notes": {
+                "address": "Razorpay Corporate Office"
+            },
+            "theme": {
+                "color": "#3399cc"
+            }
+        };
+        var rzp1 = new Razorpay(options);
+            rzp1.open();
+    }
+    
+
   return (
     <Layout title="Place Order">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
         <CheckoutWizard activeStep={3}/>
         <h1 className="mb-4 text-xl">Place Order</h1>
         {cartItems.length===0?
@@ -157,7 +190,7 @@ const Placeorder = () => {
                                 </div>
                             </li>
                             <li>
-                                <button disabled={loading} onClick={placeOrderHandler} className="primary-button w-full">
+                                <button disabled={loading} onClick={checkoutHandler} className="primary-button w-full">
                                     {loading ? 'Loading...': "Place Order"}
                                 </button>
                             </li>

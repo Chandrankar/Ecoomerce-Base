@@ -20,11 +20,13 @@
     "mongoose": "^6.9.1",
     "next": "latest",
     "next-auth": "^4.19.2",
+    "razorpay": "^2.8.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.1",
     "react-pro-sidebar": "^1.0.0",
-    "react-toastify": "^9.1.1"
+    "react-toastify": "^9.1.1",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@types/node": "18.11.3",
