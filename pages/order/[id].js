@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import Layout from '../../components/Layout';
+import Layout from '../../components/Layout/Layout';
 import { useReducer } from 'react';
 import { useEffect } from 'react';
 import axios from 'axios';
