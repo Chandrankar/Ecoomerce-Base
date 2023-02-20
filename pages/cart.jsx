@@ -15,11 +15,11 @@ const Cart = () => {
     const {
         cart: {cartItems},
     } = state;
-    const removeItemHandler =(item:any)=>{
+    const removeItemHandler =(item)=>{
         dispatch({type: 'CART_REMOVE_ITEM',payload: item})
     }
     const {push} = useRouter();
-    const updateCartHandler = async(item:any, qty:string) =>{
+    const updateCartHandler = async(item, qty) =>{
         const quantity = Number(qty);
         const {data} = await axios.get(`/api/products/${item._id}`);
         if(data.countInStock< quantity){
@@ -50,7 +50,7 @@ const Cart = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {cartItems.map((item:any)=>(
+                                {cartItems.map((item)=>(
                                     <tr className="border-b" key={item.slug}>
                                         <td>
                                             <Link href={`/product/${item.slug}`}> 
@@ -90,9 +90,9 @@ const Cart = () => {
                     <ul>
                         <li>
                             <div className="pb-3">
-                                Subtotal ({cartItems.reduce((a:number,c:any):number=> a + c.quantity,0)})
+                                Subtotal ({cartItems.reduce((a,c)=> a + c.quantity,0)})
                                 {' '}
-                                {cartItems.reduce((a:number,c:any):number=> a+ c.quantity *c.price,0)}
+                                {cartItems.reduce((a,c)=> a+ c.quantity *c.price,0)}
                             </div>
                         </li>
                         <li><button className="primary-button w-full" onClick={()=>push('/shipping')}>Checkout</button></li>
