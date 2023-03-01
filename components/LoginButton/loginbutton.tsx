@@ -1,4 +1,3 @@
-import {Button, Box} from "@mui/material";
 import {useRouter} from "next/router";
 import {useUser} from '@auth0/nextjs-auth0/client';
 
@@ -22,10 +21,10 @@ const Loginbutton = () =>{
     <div>
       {user? (<>
         <div>{user.name}</div>
-        <Button variant="contained" onClick={handleLogout}>Logout</Button>
+        <button className="text-white text-xl" onClick={handleLogout}>Logout</button>
         </>
       ):(
-      <Button variant="contained" onClick={handleLogin}>Login</Button>
+      <button className="text-white text-xl" onClick={handleLogin}>Login</button>
       )}
       </div>
   )

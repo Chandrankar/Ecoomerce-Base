@@ -1,25 +1,34 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Image from 'next/image';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import FormatListBulletedRoundedIcon from '@mui/icons-material/FormatListBulletedRounded';
 import PermIdentitySharpIcon from '@mui/icons-material/PermIdentitySharp';
 import Sidecart from '../Sidecart/Sidecart';
 import Dropdown from '../Dropdown/Dropdown';
+import { useRouter } from 'next/router';
 
 const Hero = () => {
+    const {push} = useRouter();
+    const [query,setQuery] = useState('');
+    const submitHandler = (e:any)=>{
+        console.log('Clicked')
+        e.preventDefault();
+        push(`/search?query=${query}`);
+      }
   return (
     <div className="bg-gradient-to-t from-red-500 to-orange-500 pt-4 w-full">
         <div className="flex justify-between mx-4">
             <p className="text-white">Gauri Puja</p>
-            <div className="bg-gray-100 rounded-lg w-1/2"><form action="" className="flex justify-between">
-                    <button className="px-1"><SearchRoundedIcon/></button>
+            <div className="bg-gray-100 rounded-lg w-1/2"><form onSubmit={submitHandler} className="flex justify-between">
+                    <button className="px-1" ><SearchRoundedIcon/></button>
                     <input type="text" 
                         placeholder='Search Sarees, Kurtis and more...'
+                        onChange={(e)=>setQuery(e.target.value)}
                         className="border-none bg-gray-100 w-full" />
                     <button className="px-1"><FormatListBulletedRoundedIcon/></button>
                 </form></div>
                 <div className="flex px-4 text-white divide-x-2 text-xl text-center items-center">
-                    <div className="mx-2 text-center items-center">
+                    <div className="mx-2 text-center items-center" onClick={()=>push('/api/auth/login')}>
                         <PermIdentitySharpIcon/>Sign In
                     </div>
                     <div className="mx-2 text-center items-end">

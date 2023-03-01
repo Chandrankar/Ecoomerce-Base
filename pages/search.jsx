@@ -1,6 +1,5 @@
-import axios from 'axios';
+
 import { useRouter } from 'next/router';
-import { useContext } from 'react';
 import { toast } from 'react-toastify';
 import Layout from '../components/Layout/Layout';
 import { Store } from '../utils/Store';
@@ -8,6 +7,7 @@ import { XCircleIcon } from '@heroicons/react/24/outline';
 import ProductItem from '../components/Productitem';
 import Product from '../models/Product';
 import db from '../utils/db';
+
 
 const PAGE_SIZE = 6;
 
@@ -89,12 +89,12 @@ export default function Search(props) {
     filterSearch({ rating: e.target.value });
   };
 
-  const { state, dispatch } = useContext(Store);
+
  
   return (
     <Layout title="search">
       <div className="grid md:grid-cols-4 md:gap-5">
-        <div>
+        <div className="hidden md:block">
           <div className="my-3">
             <h2>Categories</h2>
             <select

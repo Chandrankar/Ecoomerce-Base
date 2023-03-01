@@ -2,17 +2,15 @@ import React,{Fragment, useState} from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Bars3Icon,  XMarkIcon } from '@heroicons/react/24/outline';
 import Loginbutton from '../LoginButton/loginbutton';
 import Sidecart from '../Sidecart/Sidecart';
 import { useUser } from '@auth0/nextjs-auth0/client';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
+import FormatListBulletedRoundedIcon from '@mui/icons-material/FormatListBulletedRounded';
+import Dropdown from '../Dropdown/Dropdown';
 
 
-const navigation = [
-    { name: 'Home', href: '/', current: true },
-    { name: 'Dashboard', href: '/dashboard', current: false },
-  ]
+
   
   function classNames(...classes:any) {
     return classes.filter(Boolean).join(' ')
@@ -21,7 +19,6 @@ const navigation = [
 const Navbar = () => {
 
   const{push} = useRouter();
-  const [open, setOpen] = useState(false);
   const {user} = useUser();
   const [query,setQuery] = useState('');
 
@@ -33,68 +30,26 @@ const Navbar = () => {
 
   return (
     <>
-    <Disclosure as="nav" className="bg-gray-800">
-      {({ open }) => (
+    <Disclosure as="nav" className="bg-[#7A0A03]">
         <>
-          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+          <div className="mx-auto px-2 sm:px-6 lg:px-8">
             <div className="relative flex h-16 items-center justify-between">
-              <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-                {/* Mobile menu button*/}
-                <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
-                  <span className="sr-only">Open main menu</span>
-                  {open ? (
-                    <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
-                  ) : (
-                    <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
-                  )}
-                </Disclosure.Button>
-              </div>
-              <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                <div className="flex flex-shrink-0 items-center">
-                  <img
-                    className="block h-8 w-auto lg:hidden"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                    alt="Your Company"
-                  />
-                  <img
-                    className="hidden h-8 w-auto lg:block"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                    alt="Your Company"
-                  />
+                  <div className="ml-20 text-white text-xl font-bold">Gauri Puja</div>
+                <div className="hidden bg-gray-100 rounded-lg md:block w-3/4"><form onSubmit={submitHandler} className="flex justify-between">
+                    <button className="px-1" ><SearchRoundedIcon/></button>
+                    <input type="text" 
+                        placeholder='Search Sarees, Kurtis and more...'
+                        onChange={(e)=>setQuery(e.target.value)}
+                        className="border-none bg-gray-100 w-full" />
+                    <button className="px-1"><FormatListBulletedRoundedIcon/></button>
+                </form>
                 </div>
-                <div className="hidden sm:ml-6 sm:block">
-                  <div className="flex space-x-4">
-                    {navigation.map((item) => (
-                      <Link
-                        key={item.name}
-                        href={item.href}
-                        className={classNames(
-                          item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                          'px-3 py-2 rounded-md text-sm font-medium'
-                        )}
-                        aria-current={item.current ? 'page' : undefined}
-                      >
-                        {item.name}
-                      </Link>
-                    ))}
-                    <div className="md: w-full">
-                    <form onSubmit={submitHandler} className="mx-auto hidden w-full justify-center md:flex">
-                      <input type="text" className="rounded-l-full  p-1 text-sm focus:ring-0 bg-gray-200"
-                      onChange={(e)=>setQuery(e.target.value)}
-                      placeholder="Search..."/>
-                      <button className="rounded-r-full bg-gray-200">
-                        <SearchOutlinedIcon/>
-                      </button>
-                    </form>
-                  </div>
-                  </div>
-                  
-                </div>
-              </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-              <Sidecart/>
-              
-                {user? (<Menu as="div" className="relative ml-3">
+              <div className="hidden md:block">
+                <Sidecart/>
+              </div>
+              <div className="hidden md:block ml-4">
+              {user? (<Menu as="div" className="relative ml-3">
                   <div>
                     <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="sr-only">Open user menu</span>
@@ -148,51 +103,22 @@ const Navbar = () => {
                     </Menu.Items>
                   </Transition>
                 </Menu>):(<Loginbutton/>)}
-                {/* Profile dropdown */}
+              </div>
                 
               </div>
             </div>
           </div>
-          <div className="hidden md:flex justify-start items-center text-white p-2 ml-16 text-bold">
-            <div className="mx-2 ml-16"><Link href="/About">About Us</Link></div>
-            <div className="mx-2"><Link href="/search?category=Saree">Sarees</Link></div>
-            <div className="mx-2"><Link href="/search?category=KurtaSet">Kurta Set</Link></div>
-            <div className="mx-2"><Link href="/search?category=Kurtis">Kurtis</Link></div>
-            <div className="mx-2"><Link href="/search?category=Shirts">Shirts</Link></div>
-            <div className="mx-2"><Link href="/search?category=Grown">Growns</Link></div>
-            <div className="mx-2"><Link href="/search?category=Pants">Pants</Link></div>
-          </div>
-
-          <Disclosure.Panel className="sm:hidden">
-            <div className="space-y-1 px-2 pt-2 pb-3">
-              {navigation.map((item) => (
-                <Disclosure.Button
-                  key={item.name}
-                  onClick={()=>push(`/${item.href}`)}
-                  className={classNames(
-                    item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                    'block px-3 py-2 rounded-md text-base font-medium'
-                  )}
-                  aria-current={item.current ? 'page' : undefined}
-                >
-                  {item.name}
-                </Disclosure.Button>
-              ))}
+          <div className="hidden md:flex justify-between items-center text-white p-2 mx-16 text-bold">
+            <div><Link href="/">Home</Link></div>
+            <div><Dropdown name="Saree"/></div>
+            <div><Dropdown name="Kurti"/></div>
+            <div><Dropdown name="Kurta Set"/></div>
+            <div><Dropdown name="Grown"/></div>
+            <div><Dropdown name="Shirt"/></div>
+            <div><Dropdown name="Fabrics"/></div>
+            <div><Dropdown name="Trending Collection"/></div>
             </div>
-            <div>
-              <form onSubmit={submitHandler} className="flex mx-auto justify-left ml-5">
-                <input type="text" className="mb-2 p-2 rounded-l-full text-xs focus:ring-0 bg-gray-200"
-                onChange={(e)=>setQuery(e.target.value)}
-                placeholder="Search..."/>
-                <button className="rounded-r-full bg-gray-200 p-2 text-xs mb-2">
-                  <SearchOutlinedIcon/>
-                </button>
-              </form>
-            </div>
-            
-          </Disclosure.Panel>
         </>
-      )}
     </Disclosure>
     </>
   )

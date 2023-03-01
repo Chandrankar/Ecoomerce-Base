@@ -5,38 +5,6 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import Link from 'next/link';
 import {useContext} from 'react';
 import { Store } from '../../utils/Store';
-import Layout from '../Layout/Layout'; 
-import Image from 'next/image';
-import {XCircleIcon} from '@heroicons/react/24/outline';
-import { useRouter } from 'next/router';
-import dynamic from 'next/dynamic';
-import axios from 'axios';
-import { toast } from 'react-toastify';
-
-const products = [
-    {
-      id: 1,
-      name: 'Throwback Hip Bag',
-      href: '#',
-      color: 'Salmon',
-      price: '$90.00',
-      quantity: 1,
-      imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg',
-      imageAlt: 'Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.',
-    },
-    {
-      id: 2,
-      name: 'Medium Stuff Satchel',
-      href: '#',
-      color: 'Blue',
-      price: '$32.00',
-      quantity: 1,
-      imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg',
-      imageAlt:
-        'Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.',
-    },
-    // More products...
-  ]
 
 const Sidecart = () => {
 
@@ -48,11 +16,10 @@ const Sidecart = () => {
     const removeItemHandler =(item:any)=>{
         dispatch({type: 'CART_REMOVE_ITEM',payload: item})
     }
-    const {push} = useRouter();
 
   return (
     <>
-    <button onClick={()=>open? setOpen(false): setOpen(true)}><ShoppingCartOutlinedIcon className="text-white"/>Cart</button>
+    <button className="flex text-white text-xl" onClick={()=>open? setOpen(false): setOpen(true)}><ShoppingCartOutlinedIcon className="text-white"/>Cart</button>
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={setOpen}>
         <Transition.Child
