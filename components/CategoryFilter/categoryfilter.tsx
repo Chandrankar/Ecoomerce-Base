@@ -18,8 +18,8 @@ const sortOptions = [
   ]
   const filters = [
     {
-      id: 'color',
-      name: 'Color',
+      id: 'category',
+      name: 'Category',
       options: [
         { value: 'white', label: 'White', checked: false },
         { value: 'beige', label: 'Beige', checked: false },

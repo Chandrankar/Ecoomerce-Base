@@ -52,7 +52,7 @@ const Sidecart = () => {
 
   return (
     <>
-    <button onClick={()=>open? setOpen(false): setOpen(true)}><ShoppingCartOutlinedIcon className="text-white"/></button>
+    <button onClick={()=>open? setOpen(false): setOpen(true)}><ShoppingCartOutlinedIcon className="text-white"/>Cart</button>
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={setOpen}>
         <Transition.Child
@@ -125,7 +125,7 @@ const Sidecart = () => {
                                     <div className="flex">
                                       <button
                                         type="button" onClick={()=>removeItemHandler(product)}
-                                        className="font-medium text-indigo-600 hover:text-indigo-500"
+                                        className="font-medium text-red-700 hover:text-indigo-500"
                                       >
                                         Remove
                                       </button>
@@ -148,7 +148,7 @@ const Sidecart = () => {
                       <div className="mt-6">
                         <Link
                           href="/cart"
-                          className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                          className="flex items-center justify-center rounded-md border border-transparent bg-[#F6DE8D] px-6 py-3 text-base font-medium text-red-700 shadow-sm hover:bg-amber-300"
                         >
                           Checkout
                         </Link>
@@ -158,7 +158,7 @@ const Sidecart = () => {
                           or
                           <button
                             type="button"
-                            className="font-medium text-indigo-600 hover:text-indigo-500"
+                            className="font-medium text-red-700 hover:text-red-400"
                             onClick={() => setOpen(false)}
                           >
                             Continue Shopping
