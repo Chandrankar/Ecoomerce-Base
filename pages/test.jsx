@@ -1,8 +1,9 @@
-import React from 'react'
+import React from 'react';
+import Floatnav from '../components/Navbar/Floatnav';
 
 const test = () => {
   return (
-    <div>test</div>
+    <div className='flex justify-center'><Floatnav/></div>
   )
 }
 

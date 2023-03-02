@@ -106,7 +106,7 @@ export default function ProductScreen(props) {
         </div>
         <div className="flex">
           <span className="title-font font-medium text-2xl text-gray-900">${product.price}</span>
-          <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"onClick={AddtocartHandler}>Add to Cart</button>
+          <button className="flex ml-auto text-red-700 bg-[#F6DE8D] border-0 py-2 px-6 focus:outline-none hover:bg-amber-400 active:bg-amber-500 rounded"onClick={AddtocartHandler}>Add to Cart</button>
         </div>
       </div>
     </div>

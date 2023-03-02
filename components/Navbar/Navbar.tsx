@@ -8,7 +8,7 @@ import { useUser } from '@auth0/nextjs-auth0/client';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import FormatListBulletedRoundedIcon from '@mui/icons-material/FormatListBulletedRounded';
 import Dropdown from '../Dropdown/Dropdown';
-
+import Floatnav from './Floatnav';
 
 
   
@@ -120,6 +120,7 @@ const Navbar = () => {
             </div>
         </>
     </Disclosure>
+    <Floatnav/>
     </>
   )
 }

@@ -1,20 +1,19 @@
 import React from 'react';
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
+import Link from 'next/link';
 
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
   }
 
-const Dropdown = ({name}) => {
+const DropdownButton = ({Icon}) => {
   return (
-    <Menu as="div" className="relative inline-block text-left">
+    <Menu as="div" className="relative inline-block text-right">
       <div>
-        <Menu.Button className="inline-flex w-full justify-center rounded-md  bg-transparent px-4 py-2 text-white">
-          {name}
-          <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
+        <Menu.Button className="inline-flex w-full justify-center bg-transparent text-[#F6DE8D] rounded-full mt-2">
+        {React.createElement(Icon,{size:28})}
         </Menu.Button>
       </div>
 
@@ -27,24 +26,24 @@ const Dropdown = ({name}) => {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute  z-10 mt-2 w-56 origin-top rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <Menu.Items className=" bottom-full absolute z-10 mt-2 w-32 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1">
             <Menu.Item>
               {({ active }) => (
-                <a
+                <Link
                   href="#"
                   className={classNames(
                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                     'block px-4 py-2 text-sm'
                   )}
                 >
-                  Item 1
-                </a>
+                  Dashboard
+                </Link>
               )}
             </Menu.Item>
             <Menu.Item>
               {({ active }) => (
-                <a
+                <Link
                   href="#"
                   className={classNames(
                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
@@ -52,12 +51,12 @@ const Dropdown = ({name}) => {
                   )}
                 >
                   Item 2
-                </a>
+                </Link>
               )}
             </Menu.Item>
             <Menu.Item>
               {({ active }) => (
-                <a
+                <Link
                   href="#"
                   className={classNames(
                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
@@ -65,20 +64,20 @@ const Dropdown = ({name}) => {
                   )}
                 >
                   Item 3
-                </a>
+                </Link>
               )}
             </Menu.Item>
             <Menu.Item>
               {({ active }) => (
-                <a
+                <Link
                   href="#"
                   className={classNames(
                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                     'block px-4 py-2 text-sm'
                   )}
                 >
-                  View All
-                </a>
+                  Item 4
+                </Link>
               )}
             </Menu.Item>
               
@@ -89,4 +88,4 @@ const Dropdown = ({name}) => {
   )
 }
 
-export default Dropdown
+export default DropdownButton
