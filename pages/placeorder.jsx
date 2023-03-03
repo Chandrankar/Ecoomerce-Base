@@ -96,13 +96,13 @@ const Placeorder = () => {
     <Layout title="Place Order">
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
         <CheckoutWizard activeStep={3}/>
-        <h1 className="mb-4 text-xl">Place Order</h1>
+        <h1 className="mb-4 text-xl mt-4 mx-4">Place Order</h1>
         {cartItems.length===0?
         (
-            <div>Cart is empty<Link href="/">Go Shopping</Link></div>
+            <div className="mt-4 mx-4">Cart is empty<Link href="/">Go Shopping</Link></div>
         ):
         (
-            <div className="grid md:grid-cols-4 md:gap-5">
+            <div className="mt-4 mx-4 grid md:grid-cols-4 md:gap-5 ">
                 <div className="overflow-x-auto md:col-span-3">
                     <div className="card p-5">
                         <h2 className="mb-2 text-lg">Shipping Address</h2>

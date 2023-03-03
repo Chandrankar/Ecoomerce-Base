@@ -53,7 +53,7 @@ const Shipping = () => {
     <Layout className="Shipping Address">
         <CheckoutWizard activeStep={1}/>
         <form onSubmit={handleSubmit(submitHandler)}
-        className="mx-auto max-w-screen-md"
+        className="mx-4 max-w-screen-md"
         >
           <h1 className="mb-4 text-xl">Shipping Address</h1>
           <div className="mb-4">

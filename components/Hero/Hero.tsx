@@ -19,7 +19,7 @@ const Hero = () => {
     <div className="bg-gradient-to-t from-red-500 to-orange-500 pt-4 w-full">
         <div className="flex justify-between mx-4">
             <p className="text-white">Gauri Puja</p>
-            <div className="bg-gray-100 rounded-lg w-1/2"><form onSubmit={submitHandler} className="flex justify-between">
+            <div className="hidden md:block bg-gray-100 rounded-lg w-1/2"><form onSubmit={submitHandler} className="flex justify-between">
                     <button className="px-1" ><SearchRoundedIcon/></button>
                     <input type="text" 
                         placeholder='Search Sarees, Kurtis and more...'
@@ -27,7 +27,7 @@ const Hero = () => {
                         className="border-none bg-gray-100 w-full" />
                     <button className="px-1"><FormatListBulletedRoundedIcon/></button>
                 </form></div>
-                <div className="flex px-4 text-white divide-x-2 text-xl text-center items-center">
+                <div className="hidden md:flex px-4 text-white divide-x-2 text-xl text-center items-center">
                     <div className="mx-2 text-center items-center" onClick={()=>push('/api/auth/login')}>
                         <PermIdentitySharpIcon/>Sign In
                     </div>
@@ -48,7 +48,7 @@ const Hero = () => {
                 
         </div>
         <div className="flex justify-between px-8">
-            <div className="pt-24 pl-12">
+            <div className="pt-24 pl-12 mb-4">
                 <div className="p-4">
                 <p className="text-white text-2xl py-2">Best Deal Online for Ethnic</p>
                 <p className="text-amber-200 text-6xl font-bold py-2">Wear The Culture</p>
@@ -59,13 +59,19 @@ const Hero = () => {
                 </div>
                 
             </div>
-            <div className="px-8"><Image
+            <div className="hidden md:block px-8"><Image
             src="/hero.png"
             alt="Picture"
             width={350}
             height={200}
             /></div>
         </div>
+        <div className="md:hidden"><Image
+            src="/hero.png"
+            alt="Picture"
+            width={150}
+            height={150}
+            /></div>
     </div>
   )
 }

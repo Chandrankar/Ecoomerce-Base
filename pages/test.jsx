@@ -3,7 +3,9 @@ import Floatnav from '../components/Navbar/Floatnav';
 
 const test = () => {
   return (
-    <div className='flex justify-center'><Floatnav/></div>
+    <div>
+      <Floatnav/>
+      </div>
   )
 }
 

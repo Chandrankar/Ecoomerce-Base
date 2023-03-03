@@ -9,7 +9,7 @@ const Collection = () => {
       </div>
       <div className="text-black w-1/2"><p className='text-center'>
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor non in autem cum porro quidem qui nostrum. Aperiam laboriosam expedita debitis, maiores amet facere cum magni voluptate odit nulla cupiditate.</p></div>
-        <div className="flex justify-center p-4 m-4">
+        <div className="md:flex justify-center p-4 m-4">
           <div className="rounded-md p-2">
           <Image
             src="/Saree1.png"

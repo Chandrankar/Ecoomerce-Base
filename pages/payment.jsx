@@ -42,7 +42,7 @@ const Payment = () => {
   return (
     <Layout title="Payment Methord">
         <CheckoutWizard activeStep={2}/>
-        <form className="mx-auto max-w-screen-md" onSubmit={submitHandler}>
+        <form className="mx-4 max-w-screen-md" onSubmit={submitHandler}>
             <h1 className="mb-4 text-xl">Payment Method</h1>
             {
                 ['Paypal','Stripe','Paytm','Razorpay','Cash on Dilevery'].map((payment)=>(

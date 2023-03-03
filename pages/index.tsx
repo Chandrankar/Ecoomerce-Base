@@ -5,6 +5,7 @@ import Productitem from '../components/Productitem'
 import Product from '../models/Product';
 import db from '../utils/db';
 import Footer from '../components/Footer/footer'
+import Floatnav from '../components/Navbar/Floatnav';
 
 
 const test = ({products}:any) => {
@@ -22,12 +23,13 @@ const test = ({products}:any) => {
                 <div className="text-xl mr-4">View All</div>
             </div>
         
-            <div className="flex justify-center">
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5">
             {products.map((product:any)=>(
             <Productitem product={product} key={product.slug}></Productitem>
                  ))}
             </div>
         </div>
+        <Floatnav/>
         <Footer/>
     </div>
   )
