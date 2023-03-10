@@ -73,7 +73,7 @@ subItems:[
             setTabopen(!tabopen)
         }
         else if(tabopen == true){
-            
+            setCurrentTab(NewTab)
         }
         else{
             setCurrentTab(NewTab);
@@ -127,12 +127,12 @@ subItems:[
                                                 <ul className="w-full">
                                                     {Categories.map((category,index)=>(
                                                         <>
-                                                            <li key={index} className="text-white text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-red-500 rounded-md mt-2">
+                                                            <li key={index} className="text-white text-sm flex justify-between gap-x-4 cursor-pointer p-2 hover:bg-red-500 rounded-md mt-2 w-full">
                                                                 <span>{category.title}</span>
                                                                 <KeyboardArrowDownIcon onClick={()=>TabManager(category.title)}/>
                                                             </li>
                                                             {open && tabopen &&(currentTab === category.title) && (
-                                                                <ul>
+                                                                <ul className>
                                                                 {category.subItems.map((subItem, index)=>(
                                                                     <>
                                                                         <li key={index} className="text-white text-sm flex items-center gap-x-4 cursor-pointer p-2 px-5 hover:bg-red-500 rounded-md mt-2 duration-300">

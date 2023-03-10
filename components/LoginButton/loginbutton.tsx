@@ -15,7 +15,6 @@ const Loginbutton = () =>{
 
   const handleLogin =()=>push('/api/auth/login')
   const handleLogout=()=>push('/api/auth/logout')
-  console.log(user);
 
   return(
     <div>

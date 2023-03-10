@@ -1,20 +1,32 @@
-import{useUser} from '@auth0/nextjs-auth0/client'
 import Order from '../../../models/Order';
 import db from '../../../utils/db';
 
 const handler = async (req, res) => {
-  const {user}=useUser()
-  if (!user) {
-    return res.status(401).send('signin required');
-  }
-
   await db.connect();
-  const newOrder = new Order({
-    ...req.body,
-    user: user,
-  });
+  if(req.body.user == undefined)
+  {
+    console.log(req.body)
+    const newOrder = new Order({
+      ...req.body,
+      isPaid: true,
+    });
+    const order = await newOrder.save();
+    res.status(201).send(order);
+    console.log('works')
+  }
+  else{
+    console.log(req.body.user)
+    const sid = req.body.user.sid
+    const newOrder = new Order({
+      ...req.body,
+      isPaid: true
+    });
+    const order = await newOrder.save();
+    res.status(201).send(order);
+  }
+  
 
-  const order = await newOrder.save();
-  res.status(201).send(order);
+
+
 };
 export default handler;

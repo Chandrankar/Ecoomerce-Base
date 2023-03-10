@@ -1,5 +1,6 @@
 import crypto from 'crypto';
 
+
 export const paymentverification = (req,res)=>{
     const {razorpay_order_id,razorpay_payment_id,razorpay_signature} = req.body;
 
@@ -13,9 +14,7 @@ export const paymentverification = (req,res)=>{
     const isAuthentic = expectedSignature === razorpay_signature;
 
     if(isAuthentic){
-        //Save in database
-
-        res.redirect("http://localhost:3000/")
+        res.redirect("http://localhost:3000/Post-Payment")
     }
     else{
         res.status(400).json({

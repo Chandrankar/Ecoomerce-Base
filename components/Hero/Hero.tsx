@@ -28,7 +28,7 @@ const Hero = () => {
                     <button className="px-1"><FormatListBulletedRoundedIcon/></button>
                 </form></div>
                 <div className="hidden md:flex px-4 text-white divide-x-2 text-xl text-center items-center">
-                    <div className="mx-2 text-center items-center" onClick={()=>push('/api/auth/login')}>
+                    <div className="mx-2 text-center items-center cursor-pointer" onClick={()=>push('/api/auth/login')}>
                         <PermIdentitySharpIcon/>Sign In
                     </div>
                     <div className="mx-2 text-center items-end">

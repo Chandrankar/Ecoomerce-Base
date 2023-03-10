@@ -5,20 +5,14 @@ import CheckoutWizard from '../components/CheckoutWizard';
 import Layout from '../components/Layout/Layout';
 import { Store } from '../utils/Store';
 import { useRouter } from 'next/router';
-import { toast } from 'react-toastify';
-import { getError } from '../utils/error';
-import Cookies from 'js-cookie';
 import axios from 'axios';
-import { useUser } from '@auth0/nextjs-auth0/client';
 
 
 const Placeorder = () => {
-    const {user} =useUser();
     const router = useRouter();
-    const {state, dispatch}=useContext(Store);
+    const {state}=useContext(Store);
     const {cart}= state;
     const {cartItems, shippingAddress, paymentMethod}=cart;
-
     const round2 = (num)=>Math.round(num *100 + Number.EPSILON)/100;
     const itemsPrice = round2(cartItems.reduce((a,c)=> a + c.quantity*c.price,0))
     const shippingPrice = itemsPrice>200 ? 0:15;
@@ -26,6 +20,7 @@ const Placeorder = () => {
     const totalPrice = round2(itemsPrice + shippingPrice + taxPrice);
 
     useEffect(()=>{
+        console.log(paymentMethod)
         if(!paymentMethod){
             router.push('/payment')
         }
@@ -33,33 +28,6 @@ const Placeorder = () => {
 
     const [loading, setLoading] = useState(false);
 
-    const placeOrderHandler = async()=>{
-        try{
-            setLoading(true);
-            const{data} = await axios.post('/api/orders',{
-                orderItems: cartItems,
-                shippingAddress,
-                paymentMethod,
-                itemsPrice,
-                shippingPrice,
-                taxPrice,
-                totalPrice
-            });
-            setLoading(false);
-            dispatch({type:'CART_CLEAR_ITEMS'});
-            Cookies.set(
-                'cart',
-                JSON.stringify({
-                    ...cart,
-                    cartItems:[],
-                })
-            );
-            router.push(`/order/${data._id}`);
-        } catch(err){
-            setLoading(false);
-            toast.error(getError(err));
-        }
-    }
 
     const checkoutHandler= async ()=>{
         const{data:{order}} = await axios.post('/api/paymentController',{
@@ -96,13 +64,13 @@ const Placeorder = () => {
     <Layout title="Place Order">
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
         <CheckoutWizard activeStep={3}/>
-        <h1 className="mb-4 text-xl mt-4 mx-4">Place Order</h1>
+        <h1 className="mb-4 text-xl mt-4 mx-4 md:ml-20">Place Order</h1>
         {cartItems.length===0?
         (
             <div className="mt-4 mx-4">Cart is empty<Link href="/">Go Shopping</Link></div>
         ):
         (
-            <div className="mt-4 mx-4 grid md:grid-cols-4 md:gap-5 ">
+            <div className="mt-4 mx-4 grid md:grid-cols-4 md:gap-5 md:ml-20">
                 <div className="overflow-x-auto md:col-span-3">
                     <div className="card p-5">
                         <h2 className="mb-2 text-lg">Shipping Address</h2>
@@ -133,8 +101,8 @@ const Placeorder = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {cartItems.map((item)=>(
-                                    <tr className="border-b" key={cartItems._id}>
+                                {cartItems.map((item,index)=>(
+                                    <tr className="border-b" key={index}>
                                         <td>
                                             <Link href={`/product/${item.slug}`}> 
                                                 <div className="flex items-center">

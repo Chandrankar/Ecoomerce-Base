@@ -29,6 +29,7 @@ const Payment = () => {
                 paymentMethod: selectedPaymentMethod,
             })
         );
+        console.log(selectedPaymentMethod)
         router.push('/placeorder');
     };
 
@@ -43,10 +44,10 @@ const Payment = () => {
     <Layout title="Payment Methord">
         <CheckoutWizard activeStep={2}/>
         <form className="mx-4 max-w-screen-md" onSubmit={submitHandler}>
-            <h1 className="mb-4 text-xl">Payment Method</h1>
+            <h1 className="mb-4 text-xl md: ml-20">Payment Method</h1>
             {
                 ['Paypal','Stripe','Paytm','Razorpay','Cash on Dilevery'].map((payment)=>(
-                    <div key={payment} className="mb-4">
+                    <div key={payment} className="mb-4 md:ml-20">
                         <input
                             name="paymentMethod"
                             className="p-2 outline-none focus-ring-0"
@@ -60,8 +61,8 @@ const Payment = () => {
                 ))
             }
             <div className="mb-4 flex justify-between">
-                <button className="default-button" type="button" onClick={()=>router.push('shipping')}>Back</button>
-                <button className="primary-button">Next</button>
+                <button className="default-button md:ml-20" type="button" onClick={()=>router.push('shipping')}>Back</button>
+                <button className="primary-button md:ml-20">Next</button>
             </div>
         </form>
     </Layout>

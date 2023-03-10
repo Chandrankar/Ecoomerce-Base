@@ -14,16 +14,16 @@ import Link from 'next/link';
 
 const SidebarDashboard = () => {
 
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false);
     const[submenuOpen,setSubmenuOpen] = useState(false);
 
 
     const Menus =[
       {title:"Home", icon:<HomeIcon/>, href:"/"},
       {title:"Analytics",icon: <BarChartIcon/>,href:"/"},
-      {title:"Users",icon:<PeopleAltIcon/>, href:"/"},
+      {title:"Users",icon:<PeopleAltIcon/>, href:"/users"},
       {title:"User Profile",icon:<PersonIcon/>, href:"/"},
-      {title:"Account",icon:<AccountBoxIcon/>},
+      {title:"Account",icon:<AccountBoxIcon/>, href:'/'},
       {title:"E-commerce", icon:<ShoppingCartIcon/>,
       submenu: true,
       submenuItems:[
@@ -50,16 +50,23 @@ const SidebarDashboard = () => {
         {Menus.map((menu, index)=>(
           <>
             <li key={index} className="text-white text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-red-500 rounded-md mt-2">
-              {menu.icon}
-              {open &&(<span>{menu.title}</span>)}
-              {menu.submenu && open &&(
+              {!menu.submenu && (<Link className="flex items-center gap-x-4" href={menu.href}>
+                {menu.icon}
+                {open &&(<span>{menu.title}</span>)}
+              </Link>)}
+              {menu.submenu && (<>
+                {menu.icon}
+                {open &&(<span>{menu.title}</span>)}
+                {menu.submenu && open &&(
                 <KeyboardArrowDownIcon className={`${submenuOpen && "rotate-180"}`} onClick={()=>setSubmenuOpen(!submenuOpen)}/>
               ) }
+              </>)}
+              
             </li>
             {menu.submenu && submenuOpen && open&& (
               <ul>
-                {menu.submenuItems.map((submenuItem,index)=>(
-                  <li key={index} className="text-white text-sm flex items-center gap-x-4 cursor-pointer p-2 px-5 hover:bg-red-500 rounded-md mt-2 duration-300">
+                {menu.submenuItems.map((submenuItem)=>(
+                  <li key={submenuItem.href} className="text-white text-sm flex items-center gap-x-4 cursor-pointer p-2 px-5 hover:bg-red-500 rounded-md mt-2 duration-300">
                     <Link href={submenuItem.href}></Link>
                     {submenuItem.title}
                   </li>

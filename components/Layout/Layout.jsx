@@ -27,8 +27,10 @@ const Layout = ({children, title}) => {
     dispatch({type:'CART_REST'});
     signOut({callbackUrl:'/login'});
   }
+  const[active, setActive] = useState(true)
 
   return (
+    
     <div>
         <Head>
         <title>{title? title:'Ecomm'}</title>

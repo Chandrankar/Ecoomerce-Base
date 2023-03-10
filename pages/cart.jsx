@@ -31,13 +31,13 @@ const Cart = () => {
 
   return (
     <Layout title = "Shopping cart">
-        <h1 className="mb-4 text-xl mt-4 mx-4">Shopping Cart</h1>
+        <h1 className="mb-4 text-xl mt-4 mx-4 md:ml-20">Shopping Cart</h1>
         {
             cartItems.length===0?
             (<div className="mt-4 mx-4">
                 Cart is Empty.<Link href="/">Go Shopping</Link>
             </div>):
-            (<div className="mx-4">
+            (<div className="mx-4 md:ml-24">
                 <div className="grid md:grid-cols-4 md: gap-5">
                     <div className="overflow-x-auto md:col-span-3">
                         <table className="min-w-full">

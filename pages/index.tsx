@@ -11,6 +11,7 @@ import Floatnav from '../components/Navbar/Floatnav';
 const test = ({products}:any) => {
   return (
     <div className="flex flex-col justify-center items-center">
+      <Floatnav/>
         <div className="bg-orange-300 flex justify-between w-full">
             <div className="mx-4">Welcome to the land of the Ethnics!</div>
             <div className="mr-4">Deliver to</div>
@@ -29,7 +30,7 @@ const test = ({products}:any) => {
                  ))}
             </div>
         </div>
-        <Floatnav/>
+        
         <Footer/>
     </div>
   )

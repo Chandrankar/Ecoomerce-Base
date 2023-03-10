@@ -5,7 +5,6 @@ import {useForm} from 'react-hook-form';
 import Cookies from 'js-cookie';
 import { Store } from '../utils/Store';
 import { useRouter } from 'next/router';
-import {withPageAuthRequired, getSession} from '@auth0/nextjs-auth0';
 
 const Shipping = () => {
   const {push}= useRouter();
@@ -53,7 +52,7 @@ const Shipping = () => {
     <Layout className="Shipping Address">
         <CheckoutWizard activeStep={1}/>
         <form onSubmit={handleSubmit(submitHandler)}
-        className="mx-4 max-w-screen-md"
+        className="mx-4 max-w-screen-md md:ml-24"
         >
           <h1 className="mb-4 text-xl">Shipping Address</h1>
           <div className="mb-4">
