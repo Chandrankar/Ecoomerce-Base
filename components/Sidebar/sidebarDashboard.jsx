@@ -28,7 +28,8 @@ const SidebarDashboard = () => {
       submenu: true,
       submenuItems:[
         {title:"Overview", href:"/"},
-        {title:"Products", href:"/"},
+        {title:"Products", href:"/listProducts"},
+        {title:"Add Product", href: "/addproduct"},
         {title:"Orders", href:"/"},
         {title:"Customer", href:"/"},
         {title:"Checkout", href:"/"}
@@ -66,9 +67,8 @@ const SidebarDashboard = () => {
             {menu.submenu && submenuOpen && open&& (
               <ul>
                 {menu.submenuItems.map((submenuItem)=>(
-                  <li key={submenuItem.href} className="text-white text-sm flex items-center gap-x-4 cursor-pointer p-2 px-5 hover:bg-red-500 rounded-md mt-2 duration-300">
-                    <Link href={submenuItem.href}></Link>
-                    {submenuItem.title}
+                  <li key={submenuItem.title} className="text-white text-sm flex items-center gap-x-4 cursor-pointer p-2 px-5 hover:bg-red-500 rounded-md mt-2 duration-300">
+                    <Link href={submenuItem.href}>{submenuItem.title}</Link>
                   </li>
                 ))}
               </ul>

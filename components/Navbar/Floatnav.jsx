@@ -18,6 +18,7 @@ const Floatnav = () => {
     const {push} = useRouter();
     const [query,setQuery] = useState('');
     const[active , setActive] = useState(false)
+
     const submitHandler = (e)=>{
         setActive(!active)
         e.preventDefault();
@@ -29,8 +30,8 @@ const Floatnav = () => {
         <div><Link href='/' className=" active:bg-red-400 rounded-full relative" ><HomeOutlinedIcon/></Link></div>
         <div><button className="rounded-full active:bg-red-400" onClick={()=>setActive(!active)}><SearchOutlinedIcon/></button></div>
         <div><CategorySidebar/></div>
-        <div>{user? (<DropdownButton Icon={PersonOutlineOutlinedIcon}/>):(<button onClick={()=>push('/api/auth/login')}><PersonOutlineOutlinedIcon/></button>)}</div>
         <div><Sidecart className="ml-4"/></div>
+        <div>{user? (<DropdownButton Icon={PersonOutlineOutlinedIcon}/>):(<button onClick={()=>push('/api/auth/login')}><PersonOutlineOutlinedIcon/></button>)}</div>
       </div>
       <div className={`${active? 'block' : 'hidden'} mx-12 fixed flex min-h-screen flex-col mt-24 overflow-hidden rounded-md md:hidden z-20`}>
             <div className=" bg-blue-100 shadow-xl rounded-md">

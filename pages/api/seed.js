@@ -7,9 +7,9 @@ import Order from "../../models/Order";
 const handler = async(req,res)=>{
     await db.connect();
     await User.deleteMany();
-    await User.insertMany(data.users);
+    //await User.insertMany(data.users);
     await Product.deleteMany();
-    await Product.insertMany(data.products)
+    //await Product.insertMany(data.products)
     await Order.deleteMany();
     await db.disconnect();
     res.send({message: 'seeded successfully'});

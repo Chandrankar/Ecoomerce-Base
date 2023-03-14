@@ -37,7 +37,7 @@ const test = ({products}:any) => {
 }
 export async function getServerSideProps(){
     await db.connect();
-    const products = await Product.find().limit(5).lean();
+    const products = await Product.find({isPublic: true}).limit(5).lean();
     return{
       props:{
         products: products.map(db.convertDocToObj)
