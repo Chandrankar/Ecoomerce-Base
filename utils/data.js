@@ -93,6 +93,43 @@ const data = {
       description: 'A popular pants',
     },
   ],
+  category: [
+    {
+      name: "Saree",
+      subCategory:[
+        {subName:"Silk Saree"},
+        {subName:"Cotton Saree"},
+      ]
+    },
+    {
+      name: "Kurti",
+      subCategory:[
+        {subName:"Silk Kurti"},
+        {subName:"Cotton Kurti"},
+      ]
+    },
+    {
+      name: "Kurta Set",
+      subCategory:[
+        {subName:"Casual Kurta Set"},
+        {subName:"Wedding Kurta Set"},
+      ]
+    },
+    {
+      name: "Gown",
+      subCategory:[
+        {subName:"Silk Gown"},
+        {subName:"Cotton Gown"},
+      ]
+    },
+    {
+      name: "Shirt",
+      subCategory:[
+        {subName:"Silk Shirt"},
+        {subName:"Cotton Shirt"},
+      ]
+    },
+  ]
 };
 
 export default data;

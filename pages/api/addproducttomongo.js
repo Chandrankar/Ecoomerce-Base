@@ -16,5 +16,6 @@ const addProduct = async(req,res) =>{
     await db.connect();
     await Product.create(MyPro)
     await db.disconnect();
+    res.status(200);
 }
 export default addProduct

@@ -1,8 +1,9 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import Layout from '../components/Layout/Layout'
 import SidebarDashboard from '../components/Sidebar/sidebarDashboard';
 import axios from 'axios';
 import {useForm} from 'react-hook-form';
+import {toast} from 'react-toastify';
 
 
 const addproduct = () => {
@@ -11,21 +12,33 @@ const addproduct = () => {
 
     const[name, setName] = useState('');
     const [category, setCategory] = useState('');
+    const [subcategory, setSubCategory] = useState('');
     const [isPublic, setIsPublic] = useState(false);
     const [stock,setStock] = useState(0);
     const [batch, setBatch] = useState(1);
     const [desc , setDesc] = useState('');
     const[price, setPrice] = useState(0);
     const [error, setError] = useState('');
-
+    const[ categories, setCategories]=useState([])
+    const [subCategories, setSubCategories]= useState([])
+    
     let file;
+    useEffect(() => {
+        async function getcategories(){
+            try{
+            const cat = await axios.get('/api/getCategories')
+            setCategories(cat.data)
+            //categories = cat.data
+        }catch(error){
+            toast.error('something went wrong')
+        }
+    } getcategories()
+    }, [name])
+    
 
     const createslug =(name)=>{
         let slug = "p"+"-"+ name.split(" ")[0]+"-"+name.split(" ")[1];
         return slug
-    }
-    async function s3Image(){
-        
     }
     async function submitHandler(){
         if(!file){
@@ -45,6 +58,7 @@ const addproduct = () => {
 
       const  ImageUrl = await url.split('?')[0]
       const slug = createslug(name)
+      try{
       axios.post("/api/addproducttomongo",{
         name,
         category,
@@ -56,6 +70,10 @@ const addproduct = () => {
         ImageUrl,
         isPublic,
       })
+    toast.success('Product Added')
+    }catch(error){
+        toast.error('unable to add product')
+      }
     }
 
     const validFileTypes = ['image/jpg','image/jpeg', 'image/png']
@@ -83,9 +101,32 @@ const addproduct = () => {
             <div className="p-2">
                 <div className="flex justify-between">
                     <label className="text-red-primary ml-4">Category</label>
-                    <input id="Category" type="text" onChange={(e)=>setCategory(e.target.value)} className="rounded-md"/>
+                    <select value={category} onChange={(e)=>setCategory(e.target.value)} className="rounded-md">
+                        <option value={''}>-----</option>
+                       {categories.map((cat)=>(
+                        <option value={cat.name}>
+                            {cat.name}
+                        </option>
+                       ))}
+                    </select>
                 </div>
             </div>
+            <div className="p-2">
+                <div className="flex justify-between">
+                    <label className="text-red-primary ml-4">Sub Category</label>
+                    <select id="SubCategory" value={subcategory} onChange={(e)=>setSubCategory(e.target.value)} className="rounded-md">
+                        <option value={''}>-----</option>
+                        {   
+                         categories.map((cat)=>(
+                            cat.subCategory.map(((sub)=>(
+                                <option value={sub.subName}>{sub.subName}</option>
+                            )))
+                         ))
+                        }
+                    </select>
+                </div>
+            </div>
+            <div>{category}</div>
             <div className="p-2">
                 <div className="flex justify-between">
                     <label className="text-red-primary ml-4">Stock</label>
@@ -131,6 +172,7 @@ const addproduct = () => {
     </Layout>
   )
 }
+
 
 
 export default addproduct

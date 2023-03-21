@@ -36,6 +36,15 @@ function convertDocToObj(doc){
     doc.updatedAt = doc.updatedAt.toString();
     return doc;
 }
+function convertDocToObjSC(doc){
+    doc._id = doc._id.toString();
+    return doc;
+}
+function convertDocToObjS(doc){
+    doc._id = doc._id.toString();
+    doc.subCategory.forEach(convertDocToObjSC)
+    return doc;
+}
 
-const db={connect, disconnect, convertDocToObj}
+const db={connect, disconnect, convertDocToObj, convertDocToObjS}
 export default db;
