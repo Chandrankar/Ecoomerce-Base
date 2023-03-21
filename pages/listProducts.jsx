@@ -9,7 +9,6 @@ import Product from '../models/Product';
 
 const listProducts = (props) => {
     console.log(props.products)
-    const pro= props.porducts
     const{push} = useRouter();
 
     const columns=[

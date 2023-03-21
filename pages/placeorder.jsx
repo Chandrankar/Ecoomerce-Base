@@ -106,12 +106,12 @@ const Placeorder = () => {
                                         <td>
                                             <Link href={`/product/${item.slug}`}> 
                                                 <div className="flex items-center">
-                                                    <Image 
+                                                    {/* <Image 
                                                         src={item.image}
                                                         alt={item.name}
                                                         width={50}
                                                         height={50}
-                                                    ></Image>
+                                                    ></Image> */}
                                                         &nbsp;
                                                     {item.name}
                                                 </div>

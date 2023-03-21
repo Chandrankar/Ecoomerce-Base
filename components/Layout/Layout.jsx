@@ -31,7 +31,7 @@ const Layout = ({children, title}) => {
 
   return (
     
-    <div>
+    <div className="w-full">
         <Head>
         <title>{title? title:'Ecomm'}</title>
         <link rel="icon" href="/favicon.ico" />

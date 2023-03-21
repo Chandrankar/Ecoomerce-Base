@@ -30,19 +30,17 @@ const SidebarDashboard = () => {
         {title:"Overview", href:"/"},
         {title:"Products", href:"/listProducts"},
         {title:"Add Product", href: "/addproduct"},
-        {title:"Orders", href:"/"},
+        {title:"Orders", href:"/listorders"},
         {title:"Customer", href:"/"},
         {title:"Checkout", href:"/"}
       ]
       },
-      {title:"calendar",icon:<CalendarMonthIcon/> , href:"/"},
       {title:"Invoice",icon:<DescriptionIcon/>, href:"/"},
-      {title:"Messages",icon:<MessageRoundedIcon/>, href:"/"},
     ]
 
     
   return (
-    <div className={`bg-red-primary h-screen fixed-insert-0 ${open ? "w-72":"w-20"} p-5 pt-8 relative duration-300`} >
+    <div className={`bg-red-primary h-screen fixed-insert-0 ${open ? "w-72":"w-20"} p-5 pt-8 relative duration-300 h-auto`} >
       <button onClick={()=>setOpen(!open)}>
       <ArrowCircleLeftOutlinedIcon className={`text-gold-primary text-3xl rounded-full absolute -right-3 top-9 border border-gold-primary cursor-pointer ${!open && "rotate-180"}`}/>
       </button>

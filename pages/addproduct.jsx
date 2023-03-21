@@ -90,7 +90,7 @@ const addproduct = () => {
     <div className="flex">
         <SidebarDashboard/>
         <form onSubmit={handleSubmit(submitHandler)}
-            className="mt-10 md:w-full"
+            className="mt-10 sm:md-3/4 md:w-full"
         >
             <div className="p-2">
                 <div className="flex justify-between">
@@ -126,7 +126,6 @@ const addproduct = () => {
                     </select>
                 </div>
             </div>
-            <div>{category}</div>
             <div className="p-2">
                 <div className="flex justify-between">
                     <label className="text-red-primary ml-4">Stock</label>
@@ -160,7 +159,7 @@ const addproduct = () => {
             <div className="p-2">
                 <div>
                     <label className="text-red-primary ml-4">Image</label>
-                    <input id='Image' type="file" onChange={handleImage} className="ml-8"/>
+                    <input id='Image' type="file" onChange={handleImage} className="md:ml-8"/>
                     {error &&<h1>{error}</h1>}
                 </div>
             </div>
