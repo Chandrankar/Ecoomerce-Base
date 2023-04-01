@@ -53,7 +53,7 @@ const PostPayment = () => {
     }, [])
     
   return (
-    <div></div>
+    <div>Loading...</div>
   )
 }
 
