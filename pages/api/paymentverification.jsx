@@ -14,7 +14,7 @@ export const paymentverification = (req,res)=>{
     const isAuthentic = expectedSignature === razorpay_signature;
 
     if(isAuthentic){
-        res.redirect("http://localhost:3000/Post-Payment")
+        res.redirect("https://ecoomerce-base-chs.vercel.app/Post-Payment")
     }
     else{
         res.status(400).json({
