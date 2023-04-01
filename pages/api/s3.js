@@ -6,7 +6,7 @@ import {promisify} from "util"
 const region = "ap-south-1"
 const bucketName= "chsproduct"
 const accessKeyId = process.env.AWS_ACCESS_KEY
-const secretAccessKey = process.env.AWS_SECRET  
+const secretAccessKey = process.env.AWS_SECRET_KEY
 const randomBytes = promisify(crypto.randomBytes)
 const s3 = new aws.S3({
     region,
