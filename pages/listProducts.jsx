@@ -26,25 +26,7 @@ const listProducts = (props) => {
             )
         }}
     ]
-    const testRow=[{id:1,
-                    name:"Black Shirt",
-                    category:"shirt",
-                    price:"2000",
-                    batchSize:"2",
-                    countInStock:"200",
-                    description:"A Nice black Shirt",
-                    slug: "black-shirt"
-    },
-    {id:2,
-        name:"Black Shirt",
-        category:"shirt",
-        price:"2000",
-        batchSize:"2",
-        countInStock:"200",
-        description:"A Nice black Shirt 2",
-        slug: "black-shirt-2"
-}
-    ]
+
   return (
     <Layout>
         <div className="flex">

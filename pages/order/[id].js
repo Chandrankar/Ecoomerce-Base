@@ -90,12 +90,12 @@ const OrderScreen = () => {
                     <tr key={item._id} className="border-b">
                       <td>
                           <div className="flex items-center">
-                            <Image
+                            {/* <Image
                               src={item.image}
                               alt={item.name}
                               width={50}
                               height={50}
-                            ></Image>
+                            ></Image> */}
                             &nbsp;
                             {item.name}
                           </div>
@@ -142,7 +142,7 @@ const OrderScreen = () => {
               </ul>
             </div>
             <div className="card p-5 mx-8 md:flex justify-center">
-              {isDelivered? (<button className="primary-button">Cancel</button>):(<button className="primary-button">Return</button>)}
+              {isDelivered? (<button className="primary-button">Return</button>):(<button className="primary-button">Cancel</button>)}
             </div> 
           </div>
       </div>

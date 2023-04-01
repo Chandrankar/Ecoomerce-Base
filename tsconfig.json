@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/login.jsx", "utils/db.js", "pages/payment.jsx", "components/Layout/Layout.jsx", "pages/placeorder.jsx", "pages/cart.jsx", "pages/api/orders/[id].js", "pages/search.jsx", "pages/api/refreshToken.js", "components/Productitem.jsx", "components/Sidebar/sidebarDashboard.jsx", "pages/test.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/login.jsx", "utils/db.js", "pages/payment.jsx", "components/Layout/Layout.jsx", "pages/placeorder.jsx", "pages/cart.jsx", "pages/api/orders/[id].js", "pages/search.jsx", "pages/api/refreshToken.js", "components/Productitem.jsx", "components/Sidebar/sidebarDashboard.jsx", "pages/test.jsx", "components/Navbar/Navbar.jsx"],
   "exclude": ["node_modules"]
 }

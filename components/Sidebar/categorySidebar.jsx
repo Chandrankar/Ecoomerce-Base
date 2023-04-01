@@ -1,10 +1,27 @@
-import React,{useState,Fragment} from 'react';
+import React,{useState,Fragment, useEffect} from 'react';
 import ReorderIcon from '@mui/icons-material/Reorder';
 import {Dialog, Transition} from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import Link from 'next/link';
 
 const CategorySidebar = () => {
+
+    const[categories, setCategories] = useState([])
+    useEffect(() => {
+        async function getcategories(){
+            try{
+            const cat = await axios.get('/api/getCategories')
+            console.log('Category side bar',cat.data)
+            setCategories(cat.data)
+        }catch(error){
+            toast.error('something went wrong')
+        }
+    } getcategories()
+    }, [])
+
     const[currentTab, setCurrentTab] = useState('');
     const[open, setOpen] = useState(false);
     const[tabopen, setTabopen] = useState(false);
@@ -125,20 +142,20 @@ subItems:[
                                         <div className="mt-8">
                                             <div className="flow-root">
                                                 <ul className="w-full">
-                                                    {Categories.map((category,index)=>(
+                                                    {categories.map((category,index)=>(
                                                         <>
                                                             <li key={index} className="text-white text-sm flex justify-between gap-x-4 cursor-pointer p-2 hover:bg-red-500 rounded-md mt-2 w-full">
-                                                                <span>{category.title}</span>
+                                                                <span>{category.name}</span>
                                                                 <KeyboardArrowDownIcon onClick={()=>TabManager(category.title)}/>
                                                             </li>
                                                             {open && tabopen &&(currentTab === category.title) && (
                                                                 <ul className>
-                                                                {category.subItems.map((subItem, index)=>(
-                                                                    <>
+                                                                {category.subCategory.map((subItem, index)=>(
+                                                                    <Link href={`/search?query=${subItem.subName}`}>
                                                                         <li key={index} className="text-white text-sm flex items-center gap-x-4 cursor-pointer p-2 px-5 hover:bg-red-500 rounded-md mt-2 duration-300">
-                                                                            {subItem.title}
+                                                                            {subItem.subName}
                                                                         </li>
-                                                                    </>
+                                                                    </Link>
                                                                 ))}
                                                                 </ul>
                                                             )}

@@ -4,10 +4,14 @@ import SidebarDashboard from '../components/Sidebar/sidebarDashboard';
 import axios from 'axios';
 import {useForm} from 'react-hook-form';
 import {toast} from 'react-toastify';
-
+import { Tooltip,Button } from 'flowbite-react';
+import AddIcon from '@mui/icons-material/Add';
+import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 const addproduct = () => {
 
+    const {push} = useRouter();
     const{handleSubmit, setValue} = useForm();
 
     const[name, setName] = useState('');
@@ -20,15 +24,22 @@ const addproduct = () => {
     const[price, setPrice] = useState(0);
     const [error, setError] = useState('');
     const[ categories, setCategories]=useState([])
-    const [subCategories, setSubCategories]= useState([])
-    
-    let file;
+    const [subCat, setSubCat]= useState([]);
+    const [file, setFile] = useState();
+
+    async function getSubCat(name){
+        setCategory(name)
+        if(name==='') return;
+        const sub = await axios.post('/api/getSubCat',{name})
+        console.log(sub.data)
+        setSubCat(sub.data)
+      }
+
     useEffect(() => {
         async function getcategories(){
             try{
             const cat = await axios.get('/api/getCategories')
             setCategories(cat.data)
-            //categories = cat.data
         }catch(error){
             toast.error('something went wrong')
         }
@@ -78,11 +89,11 @@ const addproduct = () => {
 
     const validFileTypes = ['image/jpg','image/jpeg', 'image/png']
     const handleImage = (e)=>{
-        file = e.target.files[0];
-        if(!validFileTypes.find(type=> type===file.type )){
-            setError('File must be Image file');
-            return;
-        }
+        setFile(e.target.files[0]);
+        // if(!validFileTypes.find(type=> type===file.type )){
+        //     setError('File must be Image file');
+        //     return;
+        // }
         console.log(file)
     }
   return (
@@ -101,29 +112,45 @@ const addproduct = () => {
             <div className="p-2">
                 <div className="flex justify-between">
                     <label className="text-red-primary ml-4">Category</label>
-                    <select value={category} onChange={(e)=>setCategory(e.target.value)} className="rounded-md">
+                    <div className="flex">
+                    <select value={category} onChange={(e)=>getSubCat(e.target.value)}  className="rounded-md mx-2">
                         <option value={''}>-----</option>
-                       {categories.map((cat)=>(
-                        <option value={cat.name}>
-                            {cat.name}
+                       {categories.map((cate)=>(
+                        <option value={cate.name}>
+                            {cate.name}
                         </option>
                        ))}
                     </select>
+                    <Tooltip className="bg-black"
+                        content="Add new Category"
+                        arrow={false}>
+                        <Button className="rounded-full border-1" onClick={()=>push('/manageCategories')}>
+                            <AddIcon className="text-black"/>
+                        </Button>
+                    </Tooltip>
+                    </div>
                 </div>
             </div>
             <div className="p-2">
                 <div className="flex justify-between">
                     <label className="text-red-primary ml-4">Sub Category</label>
-                    <select id="SubCategory" value={subcategory} onChange={(e)=>setSubCategory(e.target.value)} className="rounded-md">
+                    <div className="flex">
+                    <select id="SubCategory" value={subcategory} onChange={(e)=>setSubCategory(e.target.value)} className="rounded-md mx-2">
                         <option value={''}>-----</option>
                         {   
-                         categories.map((cat)=>(
-                            cat.subCategory.map(((sub)=>(
+                         subCat.map((sub)=>(
                                 <option value={sub.subName}>{sub.subName}</option>
-                            )))
                          ))
                         }
                     </select>
+                    <Tooltip className="bg-black"
+                        content="Add new Sub Category"
+                        arrow={false}>
+                        <Button className="rounded-full border-1" onClick={()=>push('/manageCategories')}>
+                            <AddIcon className="text-black"/>
+                        </Button>
+                    </Tooltip>
+                    </div>
                 </div>
             </div>
             <div className="p-2">
@@ -163,6 +190,15 @@ const addproduct = () => {
                     {error &&<h1>{error}</h1>}
                 </div>
             </div>
+            {console.log(file)}
+            {file &&(
+                <Image
+                    src={URL.createObjectURL(file)}
+                    alt="Picture"
+                    width={300}
+                    height={300}
+                />
+            )}
             <div className="p-2 ml-4">
                 <button  className='primary-button'>Add Product</button>
             </div>

@@ -1,14 +1,29 @@
-import React from 'react';
+import React,{useEffect, useState} from 'react';
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
-
+import {toast} from 'react-toastify';
+import axios from 'axios'
+import Link from 'next/link';
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
   }
 
 const Dropdown = ({name}) => {
+  const [subCat, setSubCat] = useState([])
+  useEffect(() => {
+    async function getcategories(){
+        try{
+        const cat = await axios.post('/api/getSubCat',{name})
+        //console.log(cat.data)
+        setSubCat(cat.data)
+        //categories = cat.data
+    }catch(error){
+        //toast.error('something went wrong')
+    }
+} getcategories()
+}, [name])
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -29,56 +44,35 @@ const Dropdown = ({name}) => {
       >
         <Menu.Items className="absolute  z-10 mt-2 w-56 origin-top rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1">
-            <Menu.Item>
+            {subCat.map((sub)=>(
+              <Menu.Item>
               {({ active }) => (
-                <a
-                  href="#"
+                <Link
+                  href={`/search?query=${sub.subName}`}
                   className={classNames(
                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                     'block px-4 py-2 text-sm'
                   )}
                 >
-                  Item 1
-                </a>
+                  {sub.subName}
+                </Link>
               )}
             </Menu.Item>
+            ))}
+           
+            
+            
             <Menu.Item>
               {({ active }) => (
-                <a
-                  href="#"
-                  className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
-                  )}
-                >
-                  Item 2
-                </a>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="#"
-                  className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
-                  )}
-                >
-                  Item 3
-                </a>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="#"
+                <Link
+                  href={`/search?category=${name}`}
                   className={classNames(
                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                     'block px-4 py-2 text-sm'
                   )}
                 >
                   View All
-                </a>
+                </Link>
               )}
             </Menu.Item>
               

@@ -69,15 +69,14 @@ const Cart = () => {
                                         <td className="p-5 text-right">
                                             <select value={item.quantity} onChange={(e)=> updateCartHandler(item,e.target.value)}>
                                             {[...Array(item.countInStock).keys()].map(x=>(
-                                                <option key={x+1} value={x+1}>
-                                                    {x+1}
+                                                <option key={x+1} value={(x+1)*item.batchSize}>
+                                                    {(x+1)*item.batchSize}
                                                 </option>
                                             ))}
                                             
                                             </select>
                                         </td>
-                                        <td className="p-5 text-right">{item.quantity} </td>
-                                        <td className="p-5 text-right">${item.price} </td>
+                                        <td className="p-5 text-right">₹{item.price} </td>
                                         <td className="p-5 text-center"> <button onClick={()=>removeItemHandler(item)}>
                                                 <XCircleIcon className="h-5 w-5"/>
                                             </button></td>

@@ -1,4 +1,4 @@
-import React,{Fragment, useState} from 'react';
+import React,{Fragment, useState, useEffect} from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { Disclosure, Menu, Transition } from '@headlessui/react'
@@ -9,20 +9,35 @@ import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import FormatListBulletedRoundedIcon from '@mui/icons-material/FormatListBulletedRounded';
 import Dropdown from '../Dropdown/Dropdown';
 import Floatnav from './Floatnav';
+import axios from 'axios';
+import {toast} from 'react-toastify';
 
 
   
-  function classNames(...classes:any) {
+  function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
   }
+
 
 const Navbar = () => {
 
   const{push} = useRouter();
   const {user} = useUser();
   const [query,setQuery] = useState('');
-
-  const submitHandler = (e:any)=>{
+  const [categories, setCategories] = useState([])
+  useEffect(() => {
+    async function getcategories(){
+        try{
+        const cat = await axios.get('/api/getCategories')
+        //console.log(cat.data)
+        setCategories(cat.data)
+        //categories = cat.data
+    }catch(error){
+        toast.error('something went wrong')
+    }
+} getcategories()
+}, [])
+  const submitHandler = (e)=>{
     e.preventDefault();
     push(`/search?query=${query}`);
   }
@@ -110,11 +125,11 @@ const Navbar = () => {
           </div>
           <div className="hidden md:flex justify-between items-center text-white p-2 mx-16 text-bold">
             <div><Link href="/">Home</Link></div>
-            <div><Dropdown name="Saree"/></div>
-            <div><Dropdown name="Kurti"/></div>
-            <div><Dropdown name="Kurta Set"/></div>
-            <div><Dropdown name="Grown"/></div>
-            <div><Dropdown name="Shirt"/></div>
+            {categories.map((cat)=>(
+              
+              <div><Dropdown name={cat.name}/></div>
+            ))
+            }
             <div><Dropdown name="Fabrics"/></div>
             <div><Dropdown name="Trending Collection"/></div>
             </div>

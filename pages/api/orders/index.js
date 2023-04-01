@@ -3,6 +3,7 @@ import db from '../../../utils/db';
 
 const handler = async (req, res) => {
   await db.connect();
+  console.log(req.body.user)
   if(req.body.user == undefined)
   {
     console.log(req.body)
@@ -19,6 +20,7 @@ const handler = async (req, res) => {
     const sid = req.body.user.sid
     const newOrder = new Order({
       ...req.body,
+      user_id: sid,
       isPaid: true
     });
     const order = await newOrder.save();

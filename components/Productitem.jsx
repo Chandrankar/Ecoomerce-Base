@@ -12,7 +12,7 @@ const Productitem = ({product}) => {
 
   const AddtocartHandler =async()=>{
     const existItem = state.cart.cartItems.find((x)=>x.slug === product.slug);
-    const quantity = existItem? existItem.quantity +1: 1
+    const quantity = existItem? existItem.quantity + product.batchSize: product.batchSize
     const {data} = await axios.get(`/api/products/${product._id}`);
   
     if(data.countInStock < quantity){
