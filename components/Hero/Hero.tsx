@@ -8,13 +8,16 @@ import Dropdown from '../Dropdown/Dropdown';
 import { useRouter } from 'next/router';
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import Link from 'next/link';
-
+import{initFirebase} from '../../firebase/firebase.App'
+import {getAuth} from 'firebase/auth'
+import {useAuthState} from 'react-firebase-hooks/auth'
 
 function classNames(...classes:any) {
     return classes.filter(Boolean).join(' ')
   }
 
 const Hero = () => {
+  const app = initFirebase();
     const {push} = useRouter();
     const [query,setQuery] = useState('');
     const submitHandler = (e:any)=>{
@@ -22,6 +25,9 @@ const Hero = () => {
         e.preventDefault();
         push(`/search?query=${query}`);
       }
+      const auth = getAuth();
+    const [loading, user] = useAuthState(auth);
+    if(loading){return<div>Loading...</div>}
   return (
     <div className="bg-gradient-to-t from-red-500 to-orange-500 pt-4 w-full">
         <div className="flex justify-between mx-4">
@@ -35,7 +41,7 @@ const Hero = () => {
                     <button className="px-1"><FormatListBulletedRoundedIcon/></button>
                 </form></div>
                 <div className="hidden md:flex px-4 text-white divide-x-2 text-xl text-center items-center">
-                    {/* {user ? (<Menu as="div" className="relative ml-3">
+                    {user ? (<Menu as="div" className="relative ml-3">
                   <div>
                     <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="sr-only">Open user menu</span>
@@ -88,9 +94,9 @@ const Hero = () => {
                       </Menu.Item>
                     </Menu.Items>
                   </Transition>
-                </Menu>):(<div className="mx-2 text-center items-center cursor-pointer" onClick={()=>push('/api/auth/login')}>
+                </Menu>):(<div className="mx-2 text-center items-center cursor-pointer" onClick={()=>push('/login')}>
                         <PermIdentitySharpIcon/>Sign In
-                    </div>)} */}
+                    </div>)}
                     
                     <div className="mx-2 text-center items-end">
                         <Sidecart/>

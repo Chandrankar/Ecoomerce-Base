@@ -6,13 +6,13 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 
-const listorders = () => {
+const refunds = () => {
   const {push} = useRouter();
   const [orders, setOrders] = useState([])
   useEffect(() => {
     async function getcategories(){
         try{
-        const ord = await axios.get('/api/getOrders')
+        const ord = await axios.get('/api/getRefunds')
         console.log(ord.data)
         setOrders(ord.data)
         //categories = cat.data
@@ -54,4 +54,4 @@ const listorders = () => {
 }
 
 
-export default listorders
+export default refunds

@@ -9,19 +9,23 @@ import Dropdown from '../Dropdown/Dropdown';
 import Floatnav from './Floatnav';
 import axios from 'axios';
 import {toast} from 'react-toastify';
+import{initFirebase} from '../../firebase/firebase.App'
+import {getAuth} from 'firebase/auth'
+import {useAuthState} from 'react-firebase-hooks/auth'
+//import loginbutton from '../LoginButton/loginbutton'
 
-
-  
   function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
   }
 
 
 const Navbar = () => {
-
+  const app = initFirebase();
   const{push} = useRouter();
   const [query,setQuery] = useState('');
   const [categories, setCategories] = useState([])
+  const auth = getAuth();
+  const [user] = useAuthState(auth);
   useEffect(() => {
     async function getcategories(){
         try{
@@ -61,7 +65,7 @@ const Navbar = () => {
                 <Sidecart/>
               </div>
               <div className="hidden md:block ml-4">
-              {/* {user? (<Menu as="div" className="relative ml-3">
+              {user? (<Menu as="div" className="relative ml-3">
                   <div>
                     <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="sr-only">Open user menu</span>
@@ -114,7 +118,7 @@ const Navbar = () => {
                       </Menu.Item>
                     </Menu.Items>
                   </Transition>
-                </Menu>):(<Loginbutton/>)} */}
+                </Menu>):(<button className="text-xl text-white" onClick={()=>push('/login')}>Login</button>)}
               </div>
                 
               </div>

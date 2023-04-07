@@ -39,14 +39,12 @@ const removeSubc = async()=>{
     setCategory(name)
     if(name==='') return;
     const sub = await axios.post('/api/getSubCat',{name})
-    console.log(sub.data)
     setSubCat(sub.data)
   }
   useEffect(() => {
     async function getcategories(){
         try{
         const ord = await axios.get('/api/getCategories')
-        console.log(ord.data)
         setCat(ord.data)
         //categories = cat.data
     }catch(error){

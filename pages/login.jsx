@@ -6,6 +6,7 @@ import PhoneInput from "react-phone-input-2";
 import {  RecaptchaVerifier } from "firebase/auth";
 import {auth} from '../firebase/firebase.App'
 import { signInWithPhoneNumber } from "firebase/auth";
+import { useRouter } from 'next/router';
 
 const login = () => {
     const handleOnChange=(res)=>{
@@ -16,7 +17,7 @@ const login = () => {
     const [ph,setPh]= useState("");
     const [showOTP, setShowOTP] = useState(false);
     const [user, setUser] = useState(null)
-
+    const {push} = useRouter();
     const onCaptchaVerify =()=>{
         if(!window.recaptchaVerifier){
             window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container',{
@@ -52,6 +53,7 @@ const login = () => {
         window.confirmationResult.confirm(otp).then(async(result) => {
             console.log(result)
              setUser(result.user);
+                push('/')
             // ...
           }).catch((error) => {
             console.log(error)
@@ -91,7 +93,7 @@ const login = () => {
                         Enter Your Phone Number
                     </label>
                     <PhoneInput country={"in"} value={ph} onChange={setPh}/>
-                        <button className="primary-button" onClick={onSignup}>Get OTP</button>
+                    <button className="primary-button" onClick={onSignup}>Get OTP</button>
                 </>)
                 }
             </div>

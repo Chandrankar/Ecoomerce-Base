@@ -5,6 +5,9 @@ import axios from 'axios';
 import { getError } from '../../utils/error';
 import { toast } from 'react-toastify';
 import RefundModal from '../../components/RefundModal/RefundModal';
+import{initFirebase} from '../../firebase/firebase.App'
+import { getAuth} from "firebase/auth";
+import {useAuthState} from 'react-firebase-hooks/auth'
 
 const OrderScreen = () => {
 
@@ -17,9 +20,19 @@ const OrderScreen = () => {
     const [totalPrice, setTotalPrice] = useState(0)
     const [taxPrice, setTaxPrice] = useState(0)
     const [shippingPrice, setShippingPrice] = useState(0)
+    const[status, setStatus] = useState('');
+    const[payId, setPayId] = useState('')
     const {query} = useRouter();
     const orderId= query.id;
-   
+    const app = initFirebase();
+    const auth = getAuth();
+    const [user] = useAuthState(auth);
+    const approvecancel = async(status)=>{
+      const appr = await axios.post('/api/approvecancel',{
+        orderId,
+        status
+      })
+    }
 
      useEffect(() => {
       const fetchOrder = async ()=>{
@@ -34,6 +47,8 @@ const OrderScreen = () => {
          setShippingPrice(data.shippingPrice)
          setTaxPrice(data.taxPrice)
          setTotalPrice(data.totalPrice)
+         setStatus(data.status)
+         setPayId(data.paymentId)
          
          } catch(err){
           toast.error(getError(err))
@@ -71,6 +86,9 @@ const OrderScreen = () => {
               ) : (
                 <div className="alert-error">Not paid</div>
               )}
+              {user && <div className="alert-success">{payId}</div>
+
+              }
             </div>
           </div>
             </div>
@@ -101,9 +119,9 @@ const OrderScreen = () => {
                           </div>
                       </td>
                       <td className=" p-5 text-right">{item.quantity}</td>
-                      <td className="p-5 text-right">${item.price}</td>
+                      <td className="p-5 text-right">₹{item.price}</td>
                       <td className="p-5 text-right">
-                        ${item.quantity * item.price}
+                      ₹{item.quantity * item.price}
                       </td>
                     </tr>
                   ))}
@@ -118,34 +136,35 @@ const OrderScreen = () => {
                 <li>
                   <div className="mb-2 flex justify-between">
                     <div>Items</div>
-                    <div>${itemsPrice}</div>
+                    <div>₹{itemsPrice}</div>
                   </div>
                 </li>{' '}
                 <li>
                   <div className="mb-2 flex justify-between">
                     <div>Tax</div>
-                    <div>${taxPrice}</div>
+                    <div>₹{taxPrice}</div>
                   </div>
                 </li>
                 <li>
                   <div className="mb-2 flex justify-between">
                     <div>Shipping</div>
-                    <div>${shippingPrice}</div>
+                    <div>₹{shippingPrice}</div>
                   </div>
                 </li>
                 <li>
                   <div className="mb-2 flex justify-between">
                     <div>Total</div>
-                    <div>${totalPrice}</div>
+                    <div>₹{totalPrice}</div>
                   </div>
                 </li>
               </ul>
             </div>
-            
-              
           </div>
       </div>
-      {isDelivered? (<RefundModal action="Return" orderid={orderId}/>):(<RefundModal action="Cancel" orderid={orderId}/>)}
+      {status=="processing" && (<div>{isDelivered? (<RefundModal action="Return" orderid={orderId}/>):(<RefundModal action="Cancel" orderid={orderId}/>)}</div>)}
+      {status}
+      {status=="Cancel Request" && <button className="primary-button" onClick={()=>approvecancel("Cancel")}>Approve</button>}
+      {status=="Return Request" && <button className="primary-button" onClick={()=>approvecancel("Return")}>Approve</button>}
     </Layout>
   )
 }

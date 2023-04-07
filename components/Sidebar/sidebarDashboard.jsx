@@ -5,7 +5,6 @@ import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import PersonIcon from '@mui/icons-material/Person';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import DescriptionIcon from '@mui/icons-material/Description';
 import MessageRoundedIcon from '@mui/icons-material/MessageRounded';
 import ArrowCircleLeftOutlinedIcon from '@mui/icons-material/ArrowCircleLeftOutlined';
@@ -20,22 +19,17 @@ const SidebarDashboard = () => {
 
     const Menus =[
       {title:"Home", icon:<HomeIcon/>, href:"/"},
-      {title:"Analytics",icon: <BarChartIcon/>,href:"/"},
+      {title:"Organizations",icon: <BarChartIcon/>,href:"/organizaton"},
       {title:"Users",icon:<PeopleAltIcon/>, href:"/users"},
-      {title:"User Profile",icon:<PersonIcon/>, href:"/"},
-      {title:"Account",icon:<AccountBoxIcon/>, href:'/'},
       {title:"E-commerce", icon:<ShoppingCartIcon/>,
       submenu: true,
       submenuItems:[
-        {title:"Overview", href:"/"},
         {title:"Products", href:"/listProducts"},
         {title:"Add Product", href: "/addproduct"},
-        {title:"Orders", href:"/listorders"},
-        {title:"Customer", href:"/"},
-        {title:"Checkout", href:"/"}
+        {title:"Orders", href:"/listorders"}
       ]
       },
-      {title:"Invoice",icon:<DescriptionIcon/>, href:"/"},
+      {title:"Refund/Cacelations", href:"/refunds",icon:<DescriptionIcon/>},
     ]
 
     

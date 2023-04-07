@@ -10,6 +10,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 export default function ProductScreen(props) {
+  const {push} = useRouter()
     const {product}=props;
     const {state,dispatch}= useContext(Store)
     const [pquantity, setPquantity] = useState(0);
@@ -59,6 +60,7 @@ export default function ProductScreen(props) {
               </select>
             </span>
           <button className="flex ml-auto text-red-700 bg-[#F6DE8D] border-0 py-2 px-6 focus:outline-none hover:bg-amber-400 active:bg-amber-500 rounded"onClick={AddtocartHandler}>Add to Cart</button>
+          <button className="flex ml-auto text-red-700 bg-[#F6DE8D] border-0 py-2 px-6 focus:outline-none hover:bg-amber-400 active:bg-amber-500 rounded"onClick={()=>push(`/editproduct/${product.slug}`)}>Edit</button>
         </div>
       </div>
     </div>
@@ -71,7 +73,6 @@ export default function ProductScreen(props) {
 export async function getServerSideProps(context) {
     const { params } = context;
     const { slug } = params;
-  
     await db.connect();
     const product = await Product.findOne({ slug }).lean();
     await db.disconnect();

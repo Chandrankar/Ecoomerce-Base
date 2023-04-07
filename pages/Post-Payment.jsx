@@ -5,12 +5,15 @@ import { getError } from '../utils/error';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import { useUser } from '@auth0/nextjs-auth0/client';
+import{initFirebase} from '../firebase/firebase.App'
+import {getAuth} from 'firebase/auth'
+import {useAuthState} from 'react-firebase-hooks/auth'
 
 const PostPayment = () => {
-
-    const {user,isLoading} = useUser()
-    if(isLoading) return(<div>Loading</div>)
+    const app = initFirebase();
+    const auth = getAuth();
+    const [user,loading] = useAuthState(auth);
+    if(loading){<div>Loading...</div>}
     const {state, dispatch} = useContext(Store);
     const {cart} = state;
     const {cartItems, shippingAddress, paymentMethod}=cart;
@@ -20,12 +23,11 @@ const PostPayment = () => {
     const shippingPrice = itemsPrice>200 ? 0:15;
     const taxPrice = round2(itemsPrice * 0.15)
     const totalPrice = round2(itemsPrice + shippingPrice + taxPrice);
-
+    const pay_id = router.query.payment_id
     
     useEffect(() => {
         
         async function placeOrderHandler(){
-            const pay_id = router.query.payment_id
             try{
                 const {data} = await axios.post('/api/orders',{
                     orderItems: cartItems,
@@ -35,8 +37,8 @@ const PostPayment = () => {
                     shippingPrice,
                     taxPrice,
                     totalPrice,
-                    user,
                     pay_id,
+                    user
                 });
                 dispatch({type:'CART_CLEAR_ITEMS'});
                 Cookies.set(
@@ -52,7 +54,7 @@ const PostPayment = () => {
                 toast.error(getError(err));
             }
         }  placeOrderHandler();
-    }, [])
+    }, [pay_id])
     
   return (
     <div>{router.query.payment_id}</div>
