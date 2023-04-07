@@ -4,10 +4,9 @@ import SidebarDashboard from '../components/Sidebar/sidebarDashboard';
 import axios from 'axios';
 import {useForm} from 'react-hook-form';
 import {toast} from 'react-toastify';
-import { Tooltip,Button } from 'flowbite-react';
-import AddIcon from '@mui/icons-material/Add';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import ManageCatagories from '../components/manageCategories';
 
 const addproduct = () => {
 
@@ -100,20 +99,34 @@ const addproduct = () => {
     <Layout>
     <div className="flex">
         <SidebarDashboard/>
-        <form onSubmit={handleSubmit(submitHandler)}
-            className="mt-10 sm:md-3/4 md:w-full"
-        >
-            <div className="p-2">
-                <div className="flex justify-between">
-                    <label className="text-red-primary ml-4">Name</label>
-                    <input value={name} type="text" onChange={(e)=>setName(e.target.value)} className="rounded-md"/>
-                </div>
-            </div>
-            <div className="p-2">
-                <div className="flex justify-between">
-                    <label className="text-red-primary ml-4">Category</label>
-                    <div className="flex">
-                    <select value={category} onChange={(e)=>getSubCat(e.target.value)}  className="rounded-md mx-2">
+        <section className="text-gray-600 body-font overflow-hidden w-full">
+    <form onSubmit={handleSubmit(submitHandler)}>
+  <div className="container px-5 py-24 mx-auto">
+    <div className="flex">
+        <div className="w-full">
+            {!file? (<img alt="default" className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="images/default.png"/>):
+            <Image
+            src={URL.createObjectURL(file)}
+            alt="Picture"
+            width={300}
+            height={300}
+            />
+            }
+            
+            <input id='Image' type="file" onChange={handleImage} className="md:ml-8 p-4"/>
+            <div className="flex  p-4">
+        <h1 className="text-gray-900 text-xl title-font font-medium mb-1 mx-4">Make Product Public</h1>
+        <input id="isPublic" type="checkbox"  onChange={(e)=>setIsPublic(!isPublic)} className="ml-4 mt-2 rounded-full"/>
+        </div>
+        </div>
+      <div className="w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+        <div className="flex justify-between p-4">
+        <h1 className="text-gray-900 text-xl title-font font-medium mb-1 mx-4">Enter Product Name</h1>
+        <input value={name} type="text" onChange={(e)=>setName(e.target.value)} className="rounded-md"/>
+        </div>
+        <div className="flex justify-between p-4">
+        <h1 className="text-gray-900 text-xl title-font font-medium mb-1 mx-4">Select Product Category</h1>
+        <select value={category} onChange={(e)=>getSubCat(e.target.value)}  className="rounded-md mx-2">
                         <option value={''}>-----</option>
                        {categories.map((cate)=>(
                         <option value={cate.name}>
@@ -121,21 +134,10 @@ const addproduct = () => {
                         </option>
                        ))}
                     </select>
-                    <Tooltip className="bg-black"
-                        content="Add new Category"
-                        arrow={false}>
-                        <Button className="rounded-full border-1" onClick={()=>push('/manageCategories')}>
-                            <AddIcon className="text-black"/>
-                        </Button>
-                    </Tooltip>
-                    </div>
-                </div>
-            </div>
-            <div className="p-2">
-                <div className="flex justify-between">
-                    <label className="text-red-primary ml-4">Sub Category</label>
-                    <div className="flex">
-                    <select id="SubCategory" value={subcategory} onChange={(e)=>setSubCategory(e.target.value)} className="rounded-md mx-2">
+        </div>
+        <div className="flex justify-between p-4">
+        <h1 className="text-gray-900 text-xl title-font font-medium mb-1 mx-4">Select Sub Category</h1>
+        <select id="SubCategory" value={subcategory} onChange={(e)=>setSubCategory(e.target.value)} className="rounded-md mx-2">
                         <option value={''}>-----</option>
                         {   
                          subCat.map((sub)=>(
@@ -143,66 +145,46 @@ const addproduct = () => {
                          ))
                         }
                     </select>
-                    <Tooltip className="bg-black"
-                        content="Add new Sub Category"
-                        arrow={false}>
-                        <Button className="rounded-full border-1" onClick={()=>push('/manageCategories')}>
-                            <AddIcon className="text-black"/>
-                        </Button>
-                    </Tooltip>
-                    </div>
-                </div>
+        </div>
+
+            <div className="flex justify-between h-48 p-4">
+            <h1 className="text-gray-900 text-xl title-font font-medium mb-1 mx-4">Enter Product Description</h1>
+            <input value={desc} type="textarea" rows="4" cols="50" onChange={(e)=>setDesc(e.target.value)} className="rounded-md border-2"/>
             </div>
-            <div className="p-2">
-                <div className="flex justify-between">
-                    <label className="text-red-primary ml-4">Stock</label>
-                    <input id="Stock" type="text" onChange={(e)=>setStock(e.target.value)} className="rounded-md"/>
-                </div>
-            </div>
-            <div className="p-2">
-                <div className="flex justify-between">
-                    <label className="text-red-primary ml-4">Batch Size</label>
-                    <input id="Batch_Size" onChange={(e)=>setBatch(e.target.value)} type="text" className="rounded-md"/>
-                </div>
-            </div>
-            <div className="p-2">
-                <div className="flex justify-between">
-                    <label className="text-red-primary ml-4">Price</label>
-                    <input id="Price" onChange={(e)=>setPrice(e.target.value)} type="text" className="rounded-md"/>
-                </div>
-            </div>
-            <div className='p-2'>
-                <div className="flex justify-between">
-                    <label className="text-red-primary ml-4">Description</label>
-                    <input id="Description" onChange={(e)=>setDesc(e.target.value)} type="text" className="rounded-md"/>
-                </div>
-            </div>
-            <div className="p-2">
-                <div>
-                    <label className="text-red-primary ml-4">Public Listing</label>
-                    <input id="isPublic" type="checkbox"  onChange={(e)=>setIsPublic(!isPublic)} className="ml-4 rounded-full"/>
-                </div>
-            </div>
-            <div className="p-2">
-                <div>
-                    <label className="text-red-primary ml-4">Image</label>
-                    <input id='Image' type="file" onChange={handleImage} className="md:ml-8"/>
-                    {error &&<h1>{error}</h1>}
-                </div>
-            </div>
-            {console.log(file)}
-            {file &&(
-                <Image
-                    src={URL.createObjectURL(file)}
-                    alt="Picture"
-                    width={300}
-                    height={300}
-                />
-            )}
-            <div className="p-2 ml-4">
-                <button  className='primary-button'>Add Product</button>
-            </div>
-        </form>
+          
+        <div className="flex justify-between p-4">
+        <label className="font-bold text-xl">
+          Enter Price ₹</label>
+          <input value={price} type="text" onChange={(e)=>setPrice(e.target.value)} className="rounded-md"/>
+        </div>
+        <div className="flex justify-between p-4">
+        
+             <label className="font-bold text-xl">Set Lot Size</label>
+        
+        <input value={batch} type="text" onChange={(e)=>setBatch(e.target.value)} className="rounded-md"/>
+        </div>
+        <div className="flex justify-between p-4">
+      
+             <label className="font-bold text-xl">Set Total Qunatity</label>
+      
+        <input value={stock} type="text" onChange={(e)=>setStock(e.target.value)} className="rounded-md"/>
+        </div>
+        <button className="flex text-red-700 bg-[#F6DE8D] border-0 py-2 px-6 focus:outline-none hover:bg-amber-400 active:bg-amber-500 rounded">Add Product</button>
+      </div>
+      <div className="green-100">
+        <div className="py-8"></div>
+        <div className="p-4"></div>
+        <div className="py-4">
+            <ManageCatagories tooltip="Add New Category"/>
+        </div>
+        <div className="py-4">
+        <ManageCatagories tooltip="Add New Subcategory"/>
+        </div>
+        </div>
+    </div>
+  </div>
+  </form>
+</section>
     </div>
     </Layout>
   )

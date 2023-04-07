@@ -25,6 +25,7 @@ const PostPayment = () => {
     useEffect(() => {
         
         async function placeOrderHandler(){
+            const pay_id = router.query.payment_id
             try{
                 const {data} = await axios.post('/api/orders',{
                     orderItems: cartItems,
@@ -34,7 +35,8 @@ const PostPayment = () => {
                     shippingPrice,
                     taxPrice,
                     totalPrice,
-                    user
+                    user,
+                    pay_id,
                 });
                 dispatch({type:'CART_CLEAR_ITEMS'});
                 Cookies.set(
@@ -49,11 +51,11 @@ const PostPayment = () => {
             } catch(err){
                 toast.error(getError(err));
             }
-        } placeOrderHandler();
+        }  placeOrderHandler();
     }, [])
     
   return (
-    <div>Loading...</div>
+    <div>{router.query.payment_id}</div>
   )
 }
 

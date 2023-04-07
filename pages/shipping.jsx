@@ -24,12 +24,14 @@ const Shipping = () => {
     setValue('address',shippingAddress.address);
     setValue('postalCode',shippingAddress.postalCode);
     setValue('city',shippingAddress.city);
+    setValue('email',shippingAddress.email);
+    setValue('phone',shippingAddress.phone);
   },[setValue, shippingAddress]);
 
-    const submitHandler=({fullName, address, city, postalCode})=>{
+    const submitHandler=({fullName, address, city, postalCode, email, phone})=>{
       dispatch({
         type:'SAVE_SHIPPING_ADDRESS',
-        payload:{fullName, address,city,postalCode}
+        payload:{fullName, address,city,postalCode,email,phone}
       });
       Cookies.set(
         'cart',
@@ -39,7 +41,9 @@ const Shipping = () => {
             fullName,
             address,
             city,
-            postalCode
+            postalCode,
+            email,
+            phone,
           },
         })
       )
@@ -65,12 +69,32 @@ const Shipping = () => {
             )}
           </div>
           <div className="mb-4">
+          <label htmlFor="email">E-Mail</label>
+          <input className="w-full" id="email" autoFocus{...register('email',{
+            required: 'Please enter you Email',
+            minLength:{value: 3, message:'Address too short'}
+          })}/>
+          {errors.email &&(
+            <div className="text-red-500">{errors.email.message}</div>
+          )}
+        </div>
+        <div className="mb-4">
+          <label htmlFor="phone">Phone Number</label>
+          <input className="w-full" id="phone" autoFocus{...register('phone',{
+            required: 'Please enter you Phone Number',
+            minLength:{value: 3, message:'Phone Number too short'}
+          })}/>
+          {errors.phone &&(
+            <div className="text-red-500">{errors.phone.message}</div>
+          )}
+        </div>
+          <div className="mb-4">
             <label htmlFor="address">Address</label>
             <input className="w-full" id="address" autoFocus{...register('address',{
               required: 'Please enter you address',
               minLength:{value: 3, message:'Address too short'}
             })}/>
-            {errors.fullName &&(
+            {errors.address &&(
               <div className="text-red-500">{errors.address.message}</div>
             )}
           </div>
@@ -80,16 +104,17 @@ const Shipping = () => {
             required: 'Please enter you address',
             minLength:{value: 3, message:'Address too short'}
           })}/>
-          {errors.fullName &&(
+          {errors.city &&(
             <div className="text-red-500">{errors.city.message}</div>
           )}
         </div>
+        
           <div className="mb-4">
           <label htmlFor="postalCode">Pincode</label>
           <input className="w-full" id="postalCode" autoFocus{...register('postalCode',{
             required: 'Please enter your pincode',
           })}/>
-          {errors.fullName &&(
+          {errors.postalCode &&(
             <div className="text-red-500">{errors.postalCode.message}</div>
           )}
         </div>

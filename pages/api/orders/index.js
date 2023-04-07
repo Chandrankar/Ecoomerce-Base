@@ -10,6 +10,7 @@ const handler = async (req, res) => {
     const newOrder = new Order({
       ...req.body,
       isPaid: true,
+      paymentId: req.body.pay_id
     });
     const order = await newOrder.save();
     res.status(201).send(order);
@@ -21,7 +22,8 @@ const handler = async (req, res) => {
     const newOrder = new Order({
       ...req.body,
       user_id: sid,
-      isPaid: true
+      isPaid: true,
+      paymentId: req.body.pay_id
     });
     const order = await newOrder.save();
     res.status(201).send(order);

@@ -1,10 +1,10 @@
 import React,{useEffect, useState} from 'react'
 import { useRouter } from 'next/router'
 import Layout from '../../components/Layout/Layout';
-import Image from 'next/image';
 import axios from 'axios';
 import { getError } from '../../utils/error';
 import { toast } from 'react-toastify';
+import RefundModal from '../../components/RefundModal/RefundModal';
 
 const OrderScreen = () => {
 
@@ -90,12 +90,12 @@ const OrderScreen = () => {
                     <tr key={item._id} className="border-b">
                       <td>
                           <div className="flex items-center">
-                            {/* <Image
+                            <img
                               src={item.image}
                               alt={item.name}
                               width={50}
                               height={50}
-                            ></Image> */}
+                            ></img>
                             &nbsp;
                             {item.name}
                           </div>
@@ -141,11 +141,11 @@ const OrderScreen = () => {
                 </li>
               </ul>
             </div>
-            <div className="card p-5 mx-8 md:flex justify-center">
-              {isDelivered? (<button className="primary-button">Return</button>):(<button className="primary-button">Cancel</button>)}
-            </div> 
+            
+              
           </div>
       </div>
+      {isDelivered? (<RefundModal action="Return" orderid={orderId}/>):(<RefundModal action="Cancel" orderid={orderId}/>)}
     </Layout>
   )
 }

@@ -55,12 +55,12 @@ const Cart = () => {
                                         <td>
                                             <Link href={`/product/${item.slug}`}> 
                                                 <div className="flex items-center">
-                                                    {/* <Image 
+                                                    <img 
                                                         src={item.image}
                                                         alt={item.name}
                                                         width={50}
                                                         height={50}
-                                                    ></Image> */}
+                                                    />
                                                     &nbsp;
                                                     {item.name}
                                                 </div>

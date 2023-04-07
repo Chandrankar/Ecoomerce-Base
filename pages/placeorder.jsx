@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import React,{useContext, useEffect, useState} from 'react';
 import CheckoutWizard from '../components/CheckoutWizard';
@@ -18,51 +17,37 @@ const Placeorder = () => {
     const shippingPrice = itemsPrice>200 ? 0:15;
     const taxPrice = round2(itemsPrice * 0.15)
     const totalPrice = round2(itemsPrice + shippingPrice + taxPrice);
-
+    const email = shippingAddress.email;
+    const fullname= shippingAddress.fullName;
+    const phone= shippingAddress.phone;
     useEffect(()=>{
-        console.log(paymentMethod)
+        console.log(shippingAddress)
         if(!paymentMethod){
             router.push('/payment')
         }
     },[paymentMethod, router])
 
-    const [loading, setLoading] = useState(false);
-
+    const[loading, setLoading] = useState(false)
 
     const checkoutHandler= async ()=>{
-        const{data:{order}} = await axios.post('/api/paymentController',{
+        const data ={
+            purpose: 'Payment for order',
             amount: totalPrice,
-        })
-        console.log(order)
-        const options = {
-            "key": process.env.RAZORPAY_API_KEY,
-            "amount": order.amount, 
-            "currency": "INR",
-            "name": "Ecomm",
-            "description": "Test Transaction",
-            "image": "https://example.com/your_logo",
-            "order_id": order.id, 
-            "callback_url": "https://ecoomerce-base-chs.vercel.app/api/paymentverification",
-            "prefill": {
-                "name": "Gaurav Kumar",
-                "email": "gaurav.kumar@example.com",
-                "contact": "9000090000"
-            },
-            "notes": {
-                "address": "Razorpay Corporate Office"
-            },
-            "theme": {
-                "color": "#3399cc"
-            }
+            buyer_name: fullname,
+            email:email,
+            phone:phone,
+            redirect_url: 'http://localhost:3000/Post-Payment',
+            webhook_url: '/webhook/',
         };
-        var rzp1 = new Razorpay(options);
-            rzp1.open();
+        axios.post('/api/instamojo',data).then(res=>{
+            console.log('resp',res.data)
+            window.location.href = res.data
+        }).catch((error)=>console.log(error.response.data));
     }
     
 
   return (
     <Layout title="Place Order">
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
         <CheckoutWizard activeStep={3}/>
         <h1 className="mb-4 text-xl mt-4 mx-4 md:ml-20">Place Order</h1>
         {cartItems.length===0?
@@ -106,12 +91,12 @@ const Placeorder = () => {
                                         <td>
                                             <Link href={`/product/${item.slug}`}> 
                                                 <div className="flex items-center">
-                                                    {/* <Image 
+                                                    <img
                                                         src={item.image}
                                                         alt={item.name}
                                                         width={50}
                                                         height={50}
-                                                    ></Image> */}
+                                                    />
                                                         &nbsp;
                                                     {item.name}
                                                 </div>

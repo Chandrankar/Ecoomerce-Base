@@ -2,9 +2,7 @@ import React,{Fragment, useState, useEffect} from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import Loginbutton from '../LoginButton/loginbutton';
 import Sidecart from '../Sidecart/Sidecart';
-import { useUser } from '@auth0/nextjs-auth0/client';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import FormatListBulletedRoundedIcon from '@mui/icons-material/FormatListBulletedRounded';
 import Dropdown from '../Dropdown/Dropdown';
@@ -22,7 +20,6 @@ import {toast} from 'react-toastify';
 const Navbar = () => {
 
   const{push} = useRouter();
-  const {user} = useUser();
   const [query,setQuery] = useState('');
   const [categories, setCategories] = useState([])
   useEffect(() => {
@@ -64,7 +61,7 @@ const Navbar = () => {
                 <Sidecart/>
               </div>
               <div className="hidden md:block ml-4">
-              {user? (<Menu as="div" className="relative ml-3">
+              {/* {user? (<Menu as="div" className="relative ml-3">
                   <div>
                     <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="sr-only">Open user menu</span>
@@ -117,7 +114,7 @@ const Navbar = () => {
                       </Menu.Item>
                     </Menu.Items>
                   </Transition>
-                </Menu>):(<Loginbutton/>)}
+                </Menu>):(<Loginbutton/>)} */}
               </div>
                 
               </div>

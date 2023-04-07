@@ -3,8 +3,10 @@ import Layout from '../components/Layout/Layout';
 import SidebarDashboard from '../components/Sidebar/sidebarDashboard';
 import {DataGrid, GridToolbar} from '@mui/x-data-grid';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 const listorders = () => {
+  const {push} = useRouter();
   const [orders, setOrders] = useState([])
   useEffect(() => {
     async function getcategories(){
@@ -25,6 +27,13 @@ const listorders = () => {
         {field:"isDelivered",headerName:"Delivery Status",flex:1},
         {field:"status",headerName:"Status",flex:1},
         {field:"createdAt",headerName:"Order Date",flex:1},
+        {field:"details", headername:"Show Details",flex:1,renderCell:({row:{_id}})=>{
+          return(
+              <div>
+                  <button onClick={()=>push(`/order/${_id}`)}>Show Details</button>
+              </div>
+          )
+      }}
     ]
   return (
     <Layout>

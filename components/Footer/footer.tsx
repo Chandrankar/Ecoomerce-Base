@@ -87,6 +87,11 @@ const Footer = () => {
             <Link href="" className="text-gray-600 hover:text-gray-800">Fourth Link</Link>
           </li>
         </nav>
+        <div>
+        <Link href="/orderSearch">
+          Order Status
+        </Link>
+      </div>
       </div>
     </div>
   </div>
